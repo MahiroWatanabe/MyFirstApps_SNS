@@ -18,5 +18,10 @@
     {% empty %}
         <p>No posts yet.</p>
     {% endfor %}
+    <a href="{% url 'MyApp:talk' %}"><button>talk</button></a>
+    <a href="{% url 'MyApp:post' %}"><button>post</button></a>
+    <a href="{% url 'MyApp:myPage' %}"><button>myPage</button></a>
+    <a href="{% url 'MyApp:logout' %}"><button>logout</button></a>
+
 </body>
 </html>

@@ -1,0 +1,15 @@
+@use 'parts/header';
+
+@use "globals" as *;
+
+nav{
+    & .div{
+        & .a{
+            font-size: 100px;
+        }
+    } 
+}
+
+a{
+    font-size: 200px;
+}

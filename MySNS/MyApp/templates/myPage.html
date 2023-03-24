@@ -1,2 +1,6 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main-content %}
 mypage
 <a href="{% url 'MyApp:index' %}"><button>index</button></a>
+{% endblock main-content %}

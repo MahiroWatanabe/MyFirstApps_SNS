@@ -1,27 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {% for post in posts %}
-        <div>
-            <h2>{{ post.title }}</h2>
-            <p>Author: {{ post.author }}</p>
-            <p>ID: {{ post.author_id }}</p>
-            <p>{{ post.date_posted|date:"F j, Y" }}</p>
-            <p>{{ post.content }}</p>
-        </div>
-    {% empty %}
-        <p>No posts yet.</p>
-    {% endfor %}
-    <a href="{% url 'MyApp:talk' %}"><button>talk</button></a>
-    <a href="{% url 'MyApp:post' %}"><button>post</button></a>
-    <a href="{% url 'MyApp:myPage' %}"><button>myPage</button></a>
-    <a href="{% url 'MyApp:logout' %}"><button>logout</button></a>
+{% extends 'base.html' %}
+{% load static %} 
 
-</body>
-</html>
+{% block hero %}
+<div class="hero">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="hero__title">IoT</div>
+          <img src="{% static 'images/image-1.jpg' %}" alt="" />
+        </div>
+        <div class="swiper-slide">
+          <div class="hero__title">AI</div>
+          <img src="{% static 'images/image-2.jpg' %}" alt="" />
+        </div>
+        <div class="swiper-slide">
+          <div class="hero__title">Python</div>
+          <img src="{% static 'images/image-3.jpg' %}" alt="" />
+        </div>
+      </div>
+      <div class="hero__footer">
+        <img class="hero__downarrow" src="{% static 'images/arrow.svg' %}" />
+        <span class="hero__scrolltext">scroll</span>
+      </div>
+    </div>
+  </div>
+{% endblock hero %}
+
+{% block main-contennt %}
+<section class="pickup">
+  <div class="pickup__header">
+    <h2 class="main-title">Pick Up !</h2>
+    <p class="sub-title pickup__sub-title">人気の記事をみてみよう</p>
+  </div>
+
+  <div class="pickup__inner">
+    <div class="pickup__container">
+      <!-- ここからdjangoでもらってきたデータを表示する -->
+      {% for post in posts %}
+        <div class="pickup__item">
+          <div class="pickup__img">
+            <img src="{% static 'images/image-p1.jpg' %}" alt="">
+          </div>
+          <div class="pickup__body">
+            <p class="pickup__title">
+              {{ post.title }}
+            </p>
+            <div class="pickup__text">
+              <p>Author: {{ post.author }}</p>
+              <p>ID: {{ post.author_id }}</p>
+              <p style="text-align: right;">{{ post.date_posted|date:"F j, Y" }}</p>
+              <p class="pickup__content">{{ post.content }}</p>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+            <p>No posts yet.</p>
+        {% endfor %}
+      </div>
+      <div class="pickup__btn">
+        <button class="btn filled">
+          投稿一覧を見る
+        </button>
+      </div>
+  </div>
+
+  <a href="{% url 'MyApp:talk' %}"><button>talk</button></a>
+  <a href="{% url 'MyApp:post' %}"><button>post</button></a>
+  <a href="{% url 'MyApp:myPage' %}"><button>myPage</button></a>
+  <a href="{% url 'MyApp:logout' %}"><button>logout</button></a>
+</section>
+{% endblock %}

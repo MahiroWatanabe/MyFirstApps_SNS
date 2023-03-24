@@ -5,41 +5,106 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kameron:wght@400;700&family=Noto+Sans+JP:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'styles/vendors/css-reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/vendors/swiper-bundle.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/loader.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <script src="{% static 'scripts/vendors/pace.js' %}"></script>
+
     {% block customcss %}
     {% endblock customcss %}
     <title>MyCode</title>
   </head>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">MyCode</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-                </ul>
-            </div>
+  <body>
+    <div id="global-container">
+      <div id="container">
+        <div class="mobile-menu__cover"></div>
+            <header class="header">
+              <div class="header__inner">
+                <div class="logo">
+                  <img src="" class="img__logo" alt="">
+                  <span class="logo__My">My</span>
+                  <span class="logo__Code">Code</span>
+                </div>
+                <nav class="header__nav">
+                  <ul class="header__ul">
+                    <li class="header__li"><a href="{% url 'MyApp:talk' %}">みんなのつぶやき</a></li>
+                    <li class="header__li"><a href="{% url 'MyApp:post' %}">投稿一覧</a></li>
+                    <li class="header__li"><a href="#">オープンチャット</a></li>
+                    <li class="header__li"><a class="btn filled a-justify" href="#">MyPage</a></li>
+                  </ul>
+                </nav>
+                <button class="mobile-menu__btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+              </div>
+            </header>
+        <div id="content">
+          {% block hero %}
+          {% endblock %}
+
+          <div class="main-content">
+            <main>
+              {% block main-contennt %}
+              {% endblock %}
+            </main>
+          </div>
         </div>
-    </nav>
-  
 
-    <div class="container">
-            {% block content %}
-            {% endblock %}
+        <div class="footer">
+          <div class="logo">
+            <img src="" class="img__logo" alt="">
+            <span class="logo__My">My</span>
+            <span class="logo__Code">Code</span>
+          </div>
+          <nav class="footer__nav">
+            <ul class="footer__ul">
+              <li class="footer__li"><a href="{% url 'MyApp:talk' %}">みんなのつぶやき</a></li>
+              <li class="footer__li"><a href="{% url 'MyApp:post' %}">投稿一覧</a></li>
+              <li class="footer__li"><a href="#">オープンチャット</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <nav class="mobile-menu">
+        <div class="logo">
+          <img src="" class="img__logo" alt="">
+          <span class="logo__My">My</span>
+          <span class="logo__Code">Code</span>
+        </div>
+        <ul class="mobile-menu__main">
+            <li class="mobile-menu__item">
+                <a class="mobile-menu__link" href="{% url 'MyApp:talk' %}">
+                    <span class="sub-title">みんなのつぶやき</span>
+                </a>
+            </li>
+            <li class="mobile-menu__item">
+                <a class="mobile-menu__link" href="{% url 'MyApp:post' %}">
+                    <span class="sub-title">投稿一覧</span>
+                </a>
+            </li>
+            <li class="mobile-menu__item">
+                <a class="mobile-menu__link" href="#">
+                    <span class="sub-title">オープンチャット</span>
+                </a>
+            </li>
+            <li class="mobile-menu__item">
+              <a class="mobile-menu__link" href="{% url 'MyApp:myPage' %}">
+                  <span class="sub-title">MyPage</span>
+              </a>
+          </li>
+        </ul>
+      </nav>
     </div>
-
-    {% block content %}
-    {% endblock content %}
+    <script src="{% static 'scripts/libs/mobile-menu.js' %}"></script>
+    <script src="{% static 'scripts/vendors/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'scripts/libs/hero-slider.js' %}"></script>
+    <script src="{% static 'scripts/main.js' %}"></script>
+  </body>
 </html>

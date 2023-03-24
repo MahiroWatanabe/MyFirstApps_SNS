@@ -27,15 +27,17 @@
               <div class="header__inner">
                 <div class="logo">
                   <img src="" class="img__logo" alt="">
-                  <span class="logo__My">My</span>
-                  <span class="logo__Code">Code</span>
+                  <a class="header__a" href="{% url 'MyApp:index' %}">
+                    <span class="logo__My header__My">My</span>
+                    <span class="logo__Code">Code</span>
+                  </a>
                 </div>
                 <nav class="header__nav">
                   <ul class="header__ul">
                     <li class="header__li"><a href="{% url 'MyApp:talk' %}">みんなのつぶやき</a></li>
                     <li class="header__li"><a href="{% url 'MyApp:post' %}">投稿一覧</a></li>
                     <li class="header__li"><a href="#">オープンチャット</a></li>
-                    <li class="header__li"><a class="btn filled a-justify" href="#">MyPage</a></li>
+                    <li class="header__li"><a class="btn filled a-justify" href="{% url 'MyApp:myPage' %}">MyPage</a></li>
                   </ul>
                 </nav>
                 <button class="mobile-menu__btn">
@@ -51,7 +53,7 @@
 
           <div class="main-content">
             <main>
-              {% block main-contennt %}
+              {% block main-content %}
               {% endblock %}
             </main>
           </div>

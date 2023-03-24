@@ -39,6 +39,15 @@
         @extend .content-width;
     }
 
+    &__a{
+        text-decoration: none;
+        color: $cBlack;
+    }
+
+    &__My{
+        margin-right: -10px
+    }
+
     &__nav{
         @extend .flex;
         justify-content: space-between;

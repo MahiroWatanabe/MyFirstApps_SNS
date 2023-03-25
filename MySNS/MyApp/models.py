@@ -22,10 +22,30 @@ class Post(models.Model):
         verbose_name = "投稿"
         verbose_name_plural = "投稿一覧"
 
-class Like(models.Model):
+class Talk(models.Model):
+    content = models.TextField(max_length=500)
+    date_posted = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.content
+    
+    class Meta:
+        verbose_name = "トーク"
+        verbose_name_plural = "トーク一覧"
+
+class PostLike(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-class Read(models.Model):
+class PostRead(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class TalkLike(models.Model):
+    talk = models.ForeignKey(Talk, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class TalkRead(models.Model):
+    talk = models.ForeignKey(Talk, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

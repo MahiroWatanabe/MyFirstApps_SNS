@@ -304,3 +304,47 @@
     }
 }
 //logo
+
+.picktext{
+    &__all{
+        position: relative;
+        padding-top: $navHeight;
+        @extend .content-width2;
+    }
+
+    
+    &__header{
+        background-color: $cWhite;
+        height: 100px;
+        border: 0.5px solid rgba(0, 0, 0, 0.5);
+    }
+
+    &__inner{
+        background-color: $cBgGray;
+        height: 100px;
+    }
+    
+    &__contaniner{
+    }
+
+    &__search{
+        display: block;
+        margin: 0 auto;
+        border: 0.5px solid rgba(0, 0, 0, 0.5);
+        border-radius: 7%;
+        margin-top: 20px;
+        background-color: $cHeader;
+    }
+
+    &__ul{
+        @extend .flex2;
+        list-style: none;
+        justify-content: space-around;
+    }
+
+    &__li{
+        margin-top: 10px;
+        margin-left: 0;
+        margin-right: 30px;
+    }
+}

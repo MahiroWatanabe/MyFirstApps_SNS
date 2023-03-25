@@ -1,6 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% load static %}
-{% block main-content %}
+{% block main-talk-post %}
 post
 <a href="{% url 'MyApp:index' %}"><button>index</button></a>
-{% endblock main-content %}
+{% comment %} {% for talk in talks %}
+    <div class="picktext__item">
+        <div class="picktext__header">
+            <div class="picktext__img">
+                <img src="" alt="">
+            </div>
+            <div class="picktext__user">
+                <p>Author: {{ talk.author }}</p>
+                <p>ID: {{ talk.author_id }}</p>
+                <p>{{ talk.date_posted|date:"F j, Y" }}</p>      
+            </div>
+        </div>
+        <div class="picktext__body">
+            <p class="pickup__content">{{ talk.content }}</p>
+        </div>
+    </div>
+{% empty %}
+    <p>No posts yet.</p>
+{% endfor %} {% endcomment %}
+{% endblock main-talk-post %}

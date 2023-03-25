@@ -44,6 +44,12 @@ img {
   max-width: $contentMaxWidth;
 }
 
+.content-width2 {
+  width: 50%;
+  margin: 0 auto;
+  max-width: $contentMaxWidth;
+}
+
 .flex {
   display: flex;
   flex-direction: column;
@@ -52,6 +58,12 @@ img {
     flex-direction: row;
     flex-wrap: wrap;
   }
+}
+
+.flex2{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .purple {

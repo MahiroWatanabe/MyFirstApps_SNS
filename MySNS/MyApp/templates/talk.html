@@ -1,9 +1,8 @@
 {% extends 'base2.html' %}
 {% load static %}
 {% block main-talk-post %}
-talk
-<a href="{% url 'MyApp:index' %}"><button>index</button></a>
-{% comment %} {% for talk in talks %}
+
+{% for talk in talks %}
     <div class="picktext__item">
         <div class="picktext__header">
             <div class="picktext__img">
@@ -15,11 +14,12 @@ talk
                 <p>{{ talk.date_posted|date:"F j, Y" }}</p>      
             </div>
         </div>
+        
         <div class="picktext__body">
             <p class="pickup__content">{{ talk.content }}</p>
         </div>
     </div>
 {% empty %}
     <p>No posts yet.</p>
-{% endfor %} {% endcomment %}
+{% endfor %}
 {% endblock main-talk-post %}

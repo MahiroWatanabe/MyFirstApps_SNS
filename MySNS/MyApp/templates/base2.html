@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main-content %}
+<section class="picktext">
+    <div class="picktext__all">
+        <div class="picktext__header">
+            <form>
+                <input class="picktext__search" type="text" id="search" name="search" placeholder="検索" onkeypress="return searchOnEnter(event)">
+            </form>
+            <ul class="picktext__ul">
+                <li class="picktext__li">人気順</li>
+                <li class="picktext__li">最近</li>
+            </ul>
+        </div>
+        <div class="picktext__inner">
+            <div class="picktext__container">
+                {% block main-talk-post %}
+                {% endblock main-talk-post %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

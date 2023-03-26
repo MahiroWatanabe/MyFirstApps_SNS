@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 from .models import Post, PostLike, Talk
 from django.db.models import Count
 
@@ -51,10 +51,23 @@ class PostView(ListView):
             queryset = queryset.order_by('-date_posted')
         return queryset
     
-class PostDetailView(ListView):
+class PostDetailView(DetailView):
     model = Post
-    template_name = 'post.html'
+    template_name = 'postDetail.html'
     context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        postlike_count = self.object.postlike_set.count()
+        # ポストに対するイイね数
+        context['postlike_count'] = postlike_count
+        # ログイン中のユーザーがイイねしているかどうか
+        if self.object.postlike_set.filter(user=self.request.user).exists():
+            context['is_user_liked_for_post'] = True
+        else:
+            context['is_user_liked_for_post'] = False
+
+        return context
 
 class PostCreateView(CreateView):
     model = Post
@@ -79,17 +92,20 @@ class MyPageView(ListView):
 @require_POST
 @login_required
 def post_like(request):
-    post_id = request.POST.get('post_id')
-    post = get_object_or_404(Post, id=post_id)
-    user = request.user
-    liked = False
-    if post.likes.filter(id=user.id).exists():
-        post.likes.remove(user)
-    else:
-        post.likes.add(user)
-        liked = True
+    post_pk = request.POST.get('post_pk')
     context = {
-        'liked': liked,
-        'count': post.likes.count()
+        'user': f'{ request.user }',
     }
+    post = get_object_or_404(Post, pk=post_pk)
+    like = PostLike.objects.filter(post=post, user=request.user)
+
+    if like.exists():
+        like.delete()
+        context['method'] = 'delete'
+    else:
+        like.create(post=post, user=request.user)
+        context['method'] = 'create'
+
+    context['postlike_count'] = post.postlike_set.count()
+
     return JsonResponse(context)

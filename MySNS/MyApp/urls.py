@@ -16,7 +16,7 @@ urlpatterns = [
 
     path('post/', PostView.as_view(), name="post"),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
-    path('like/', post_like, name='post_like'),
+    path('post_like/', post_like, name='post_like'),
     
     path('myPage/', MyPageView.as_view(), name="myPage"),
 

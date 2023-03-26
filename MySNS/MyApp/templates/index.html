@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %} 
+{% load static %}
 
 {% block hero %}
 <div class="hero">
@@ -49,7 +49,7 @@
               <p>Author: {{ post.author }}</p>
               <p>ID: {{ post.author_id }}</p>
               <p style="text-align: right;">{{ post.date_posted|date:"F j, Y" }}</p>
-              <p class="pickup__content">{{ post.content }}</p>
+              <p class="pickup__content">{{ post.content|truncatechars:55 }}</p>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from django.views.generic import ListView, CreateView
 from .models import Post, PostLike, Talk
@@ -28,6 +28,16 @@ class TalkView(ListView):
     #     # return Post.objects.filter(author_id=author_id)
     #     return Post.objects.filter()
 
+class TalkDetailView(ListView):
+    model = Talk
+    template_name = 'talk.html'
+    context_object_name = 'talks'
+
+class TalkCreateView(CreateView):
+    model = Talk
+    template_name = 'talk.html'
+    context_object_name = 'talks'
+
 class PostView(ListView):
     model = Post
     template_name = 'post.html'
@@ -40,6 +50,11 @@ class PostView(ListView):
         else:
             queryset = queryset.order_by('-date_posted')
         return queryset
+    
+class PostDetailView(ListView):
+    model = Post
+    template_name = 'post.html'
+    context_object_name = 'post'
 
 class PostCreateView(CreateView):
     model = Post
@@ -63,19 +78,18 @@ class MyPageView(ListView):
 
 @require_POST
 @login_required
-def like(request):
+def post_like(request):
     post_id = request.POST.get('post_id')
-    post = Post.objects.get(id=post_id)
+    post = get_object_or_404(Post, id=post_id)
     user = request.user
-    like = PostLike.objects.filter(post=post, user=user)
     liked = False
-    if like:
-        like.delete()
+    if post.likes.filter(id=user.id).exists():
+        post.likes.remove(user)
     else:
-        PostLike.objects.create(post=post, user=user)
+        post.likes.add(user)
         liked = True
     context = {
         'liked': liked,
-        'count': post.postlike_set.count()
+        'count': post.likes.count()
     }
     return JsonResponse(context)

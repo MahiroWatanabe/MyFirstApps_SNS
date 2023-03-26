@@ -26,6 +26,23 @@ img {
   }
 }
 
+.mt-sm {
+  margin-top: 16px !important;
+}
+
+.mt-md {
+  margin-top: 50px !important;
+}
+
+
+.mt-lg {
+  margin-top: 80px !important;
+
+  @include mq(lg) {
+    margin-top: 150px !important;
+  }
+}
+
 .pb-sm {
   padding-bottom: 16px !important;
 }
@@ -50,11 +67,33 @@ img {
   max-width: $contentMaxWidth;
 }
 
+.content-width3 {
+  width: 90%;
+  margin: 0 auto;
+  max-width: $contentMaxWidth2;
+}
+
+.content-height {
+  height: 90%;
+  margin: 0 auto;
+  max-height: $contentMaxWidth;
+}
+
 .flex {
   display: flex;
   flex-direction: column;
 
   @include mq(md) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.flex3 {
+  display: flex;
+  flex-direction: column;
+
+  @include mq(lg) {
     flex-direction: row;
     flex-wrap: wrap;
   }

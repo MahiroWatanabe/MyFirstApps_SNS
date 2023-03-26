@@ -348,3 +348,24 @@
         margin-right: 30px;
     }
 }
+
+.picktop{
+    @extend .content-width2;
+    &__inner{
+        width: 100%;
+        height: $navHeight;
+        background-color: aqua;
+    }
+
+    &__container{
+
+    }
+
+    &__body{
+
+    }
+
+    &__form{
+
+    }
+}

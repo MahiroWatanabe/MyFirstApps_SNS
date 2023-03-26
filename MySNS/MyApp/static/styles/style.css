@@ -43,8 +43,8 @@ img {
   max-width: 1070px;
 }
 
-.content-width2, .picktext__all {
-  width: 50%;
+.content-width2, .picktext__all, .picktop {
+  width: 30%;
   margin: 0 auto;
   max-width: 1070px;
 }
@@ -605,4 +605,10 @@ img {
   margin-top: 10px;
   margin-left: 0;
   margin-right: 30px;
+}
+
+.picktop__inner {
+  width: 100%;
+  height: 100px;
+  background-color: aqua;
 }/*# sourceMappingURL=style.css.map */

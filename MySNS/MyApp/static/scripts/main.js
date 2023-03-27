@@ -1,14 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-  let body = document.querySelector('body');
-  console.log(body);
-  if(body.classList.contains('pace-runnning')){
-    body.classList.add("#particles-js");
-  }
     const hero = new HeroSlider('.swiper');
     hero.start();
-
     new MobileMenu;
-
 });
 
 function searchOnEnter(event) {

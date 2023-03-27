@@ -1,0 +1,487 @@
+@use "globals" as *;
+@use "parts/common" as *;
+@use 'parts/hero-slider' as *;
+@use 'parts/mobile-menu' as *;
+
+html,body{
+	height: 100%;/*高さを100%にして描画エリアをとる*/
+}
+
+#particles-js{ 
+	position:fixed;/*描画固定*/
+	z-index:-1;/*描画を一番下に*/
+	width: 100%;
+	height: 100%;
+    top: 0;
+    left: 0;
+	background-color:#020E34;/*背景色*/
+}
+
+#wrapper{
+	position: relative;/*描画を#particles-jsよりも上にするためposition:relative;を指定*/
+	z-index: 1;/*z-indexの数字を大きくすることで描画を#particles-jsよりも上に*/
+	width:100%;
+	height: 100%;
+}
+
+#container{
+    position: relative;
+    z-index: 10;
+    background: white;
+    transition: transform 0.5s , box-shadow 0.5s;
+}
+
+// 要素を右寄せにする方法
+.parent {
+    text-align: right;
+    letter-spacing: -6px;
+  }
+  .child {
+      display: inline-block;
+  }
+//header
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $navHeight;
+    background-color: $cHeader;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+
+
+    &__inner{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        @extend .content-width;
+    }
+
+    &__a{
+        text-decoration: none;
+        color: $cBlack;
+    }
+
+    &__My{
+        margin-right: -10px
+    }
+
+    &__nav{
+        @extend .flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+
+        display: none;
+        @include mq(lg){
+            display: block;
+        }
+    }
+
+    &__ul{
+        display: flex;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+    }
+
+    &__li{
+        margin: 10px;
+        
+        @include mq(md){
+            margin-left: 0;
+            margin-right: 30px;
+        }
+
+        & > a{
+            color: $cSubTitle;
+            text-decoration: none;
+            &.a-justify{
+                color: $cWhite;
+                &:hover{
+                    color: $cBlack;
+                }
+            }
+        }
+    }
+
+    & .logo{
+        font-size: 30px;
+        justify-content: center;
+        @include mq(md){
+            font-size: 42px;
+            justify-content: flex-start;
+        }
+    }
+}
+//header
+
+// btn
+.btn{
+    background-color: $cWhite;
+    color: $cBlack;
+    border: 2px solid $cBlack;
+    margin: 50px 0;
+    padding: 10px 40px 10px 40px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.filled {
+    background-color: $cBlack;
+    color: $cWhite;
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+
+    &:hover {
+      background-color: $cWhite;
+      color: $cBlack;
+      box-shadow: none;
+    }
+}
+
+.letter-spacing:hover {
+    background-color: $cBlack;
+    letter-spacing: 3px;
+    color: $cWhite;
+}
+
+.shadow {
+    box-shadow: none;
+
+    &:hover {
+      transform: translate(-2.5px, -2.5px);
+      box-shadow: 5px 5px 0 0 $cBlack;
+    }
+}
+
+.solid {
+    box-shadow: 2px 2px 0 0 $cBlack;
+    border-radius: 7px;
+
+    &:hover {
+      transform: translate(2px, 2px);
+      box-shadow: none;
+    }
+}
+
+// btn
+
+// pick up
+.pickup{
+    
+    margin-top: 70px;
+    margin-bottom: 50px !important;
+
+    @include mq(xl){
+        width: 100%;
+    }
+
+    
+    &__header{
+        @extend .content-width;
+    }
+
+    &__sub-title{
+        margin-bottom: 20px !important;
+    }
+
+    &__inner{
+        position: relative;
+        &::before{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding-top: 20px;
+            background-color: $cBgGray;
+            @include mq(lg){
+                height: 105%;
+            }
+        }
+    }
+
+    &__container{
+        position: relative;
+        @extend .flex;
+        @extend .content-width;
+        justify-content:space-around;
+        z-index: 2;
+    }
+
+    &__item{
+        margin-top: 20px;
+        @include mq(sm){
+            flex-basis: 30%;
+        }         
+        @include mq(lg){
+            flex-basis: 25%;
+        }
+    }
+
+    &__body{
+        background-color: $cWhite;
+        padding: 10px;
+    }
+
+    &__content{
+        @extend .mb-sm;
+    }
+
+    &__text{
+        @extend .font-sm;
+    }
+
+    &__img{
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+
+        @include mq(xl){
+            width: 250px;
+            height: 250px;
+        }
+        @include mq(md){
+            width: 260px;
+            height: 260px;
+        }
+        @include mq(sm){
+            width: 260px;
+            height: 260px;
+        }
+
+        & > img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__btn{
+        position: relative;
+        text-align: center;
+        flex-basis: 100%;
+        z-index: 2;
+    }
+}
+// pick up
+
+// footer
+.footer{
+    padding: 60px 0 30px 0;
+    @extend .content-width;
+
+    &__nav{
+        @extend .flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+    }
+
+    &__ul{
+        @extend .flex;
+        list-style: none;
+        padding: 0;
+    }
+
+    &__li{
+        margin: 10px;
+        
+        @include mq(md){
+            margin-left: 0;
+            margin-right: 30px;
+        }
+
+        & > a{
+            color: $cSubTitle;
+            text-decoration: none;
+        }
+    }
+
+    & > .logo{
+        justify-content: center;
+        font-size: 38px;
+        @include mq(md){
+            justify-content: flex-start;
+        }
+    }
+}
+// footer
+
+//logo
+.logo{
+    font-size: 42px;
+    display: flex;
+
+    &__img{
+        width: 0.7em;
+    }
+
+    &__Code{
+        color: $cWineRed;
+    }
+}
+//logo
+
+.picktext{
+    &__all{
+        position: relative;
+        padding-top: $navHeight;
+        @extend .content-width2;
+    }
+
+    
+    &__header{
+        background-color: $cWhite;
+        height: 100px;
+        border: 0.5px solid rgba(0, 0, 0, 0.5);
+    }
+
+    &__inner{
+        background-color: $cBgGray;
+        height: 100px;
+    }
+    
+    &__contaniner{
+    }
+
+    &__search{
+        display: block;
+        margin: 0 auto;
+        border: 0.5px solid rgba(0, 0, 0, 0.5);
+        border-radius: 7%;
+        margin-top: 20px;
+        background-color: $cHeader;
+    }
+
+    &__ul{
+        @extend .flex2;
+        list-style: none;
+        justify-content: space-around;
+    }
+
+    &__li{
+        margin-top: 10px;
+        margin-left: 0;
+        margin-right: 30px;
+    }
+}
+
+.picktop{
+    @extend .content-width3;
+    &__inner{
+        // afterとbefore要素をここに追加する
+    }
+    
+    &__container{
+        @extend .flex3;
+        display: flex; 
+        width: 100%;
+        height: 83vh;
+        padding-top: 70%;
+        justify-content: center;
+        align-items: center;
+        @include mq(lg){
+            justify-content: space-between;
+            align-items: stretch;
+            padding-top: 15%;
+        }
+    }
+    
+    &__body{
+        @extend .mb-sm;
+        background-color: $cBgGray;
+        width: 80%;
+        padding: 8%;
+        padding-top: 5%;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+        margin-bottom: 50px !important;
+
+        @include mq(lg){
+            width: 55%;
+            margin-bottom: 0 !important;
+        }
+    }
+    
+    &__logo{
+        margin-bottom: -10px;
+    }
+
+    &__subtitle {
+        font-size: 10px;
+        color: $cSubTitle;
+        margin-bottom: 30px;
+    }
+
+    &__icon{
+        
+    }
+    
+    &__description{
+        
+    }
+    
+    &__form{
+        width: 80%;
+        background-color: #3d53a1;
+        box-shadow: 0px 0px 10px 4px rgb(0 0 0 / 30%);
+        padding: 8%;
+        color: $cWhite;
+        text-align: center;
+
+        @include mq(lg){
+            width: 40%;
+        }
+    }
+
+    &__titile{
+        margin-bottom: 15px;
+        text-shadow: 3px 3px 2px #000;
+    }
+    
+    &__p{
+        margin-bottom: 15px;
+        border: none;
+        box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    input::placeholder {
+        text-align: center;
+    }
+    
+    &__btn{
+        background-color: #dadada;
+        color: rgba(45, 45, 45, 0.9);
+        padding: 10px 40px;
+        margin-bottom: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.5s;
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
+        
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
+
+    &__btn2{
+        background-color: #37d549;
+        color: rgb(0 0 0 / 90%);
+        padding: 10px 40px;
+        margin-bottom: 30px;
+        font-size: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: transform 0.5s;
+        box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
+
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
+}

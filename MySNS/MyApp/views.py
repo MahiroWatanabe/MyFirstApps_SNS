@@ -1,12 +1,19 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse_lazy
 
 from django.views.generic import ListView, CreateView, DetailView
-from .models import Post, PostLike, Talk
+
 from django.db.models import Count
 
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+
 from django.http import JsonResponse
+
 from django.views.decorators.http import require_POST
+
+from .models import Post, PostLike, Talk
 
 class UserPostListView(ListView):
     model = Post
@@ -109,3 +116,17 @@ def post_like(request):
     context['postlike_count'] = post.postlike_set.count()
 
     return JsonResponse(context)
+
+class SignupView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('MyApp:index')
+    template_name = 'signup.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        # ユーザーが作成された場合はログインする
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return response

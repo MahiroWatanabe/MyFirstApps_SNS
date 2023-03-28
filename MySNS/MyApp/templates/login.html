@@ -25,6 +25,41 @@
           <main>
             <section class="picktop">
               <div class="picktop__inner">
+
+                <div class="modal-wrapper">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h2 class="modal-title">新しいアカウントを作成</h2>
+                      <button class="close-button">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="form-group">
+                          <label for="firstName">名</label>
+                          <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="lastName">姓</label>
+                          <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="email">メールアドレス</label>
+                          <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="password">パスワード</label>
+                          <input type="password" id="password" name="password" minlength="8" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="birthdate">誕生日</label>
+                          <input type="date" id="birthdate" name="birthdate" required>
+                        </div>
+                        <button type="submit" class="submit-button">アカウントを作成</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                
                 <div class="picktop__container">
                   <div class="picktop__body">
                     <div class="logo picktop__logo">
@@ -43,16 +78,17 @@
                   </div>
                   <div class="picktop__form">
                     <h2 class="picktop__titile">ログイン</h2>
-                      <form method="post">
-                        {% csrf_token %}
-                        <p>
-                          <input type="text" class="picktop__p" placeholder="ユーザー名" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
-                        </p>
-                        <p>
-                          <input type="password" class="picktop__p" placeholder="パスワード" name="password" autocomplete="current-password" required="" id="id_password">
-                        </p>
-                        <button type="submit" class="picktop__btn">ログイン</button>
-                      </form>
+                    <form method="post">
+                      {% csrf_token %}
+                      <p>
+                        <input type="text" class="picktop__p" placeholder="ユーザー名" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+                      </p>
+                      <p>
+                        <input type="password" class="picktop__p" placeholder="パスワード" name="password" autocomplete="current-password" required="" id="id_password">
+                      </p>
+                      <button type="submit" class="picktop__btn">ログイン</button>
+                    </form>
+                    <hr class="picktop__hr">
                     <button class="picktop__btn2"><a>新しいアカウントを作成</a></button>
                   </div>
                 </div>
@@ -69,6 +105,6 @@
   </div>
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script src="{% static 'scripts//vendors/particles.js' %}"></script>
-  <script src="{% static 'scripts/log.js' %}"></script>
+  <script src="{% static 'scripts/login.js' %}"></script>
 </body>
 </html>

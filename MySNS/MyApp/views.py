@@ -5,7 +5,7 @@ from django.views.generic import ListView, CreateView, DetailView
 
 from django.db.models import Count
 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
@@ -96,6 +96,20 @@ class MyPageView(ListView):
     #     # return Post.objects.filter(author_id=author_id)
     #     return Post.objects.filter()
 
+class SignupView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('MyApp:index')
+    template_name = 'signup.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        # ユーザーが作成された場合はログインする
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return response
+    
 @require_POST
 @login_required
 def post_like(request):
@@ -117,16 +131,35 @@ def post_like(request):
 
     return JsonResponse(context)
 
-class SignupView(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('MyApp:index')
-    template_name = 'signup.html'
+    
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        # ユーザーが作成された場合はログインする
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password1')
-        user = authenticate(username=username, password=password)
-        login(self.request, user)
-        return response
+def login_signup(request):
+    login_form = AuthenticationForm(request=request)
+    signup_form = UserCreationForm()
+    
+    if request.method == 'POST':
+        if 'login_form_submit' in request.POST:
+            login_form = AuthenticationForm(request=request, data=request.POST)
+            if login_form.is_valid():
+                username = login_form.cleaned_data.get('username')
+                password = login_form.cleaned_data.get('password')
+                user = authenticate(request=request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect('MyApp:index')
+        elif 'signup_form_submit' in request.POST:
+            signup_form = UserCreationForm(request.POST)
+            if signup_form.is_valid():
+                signup_form.save()
+                username = signup_form.cleaned_data.get('username')
+                password = signup_form.cleaned_data.get('password1')
+                user = authenticate(request=request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect('MyApp:index')
+
+    context = {
+        'login_form': login_form,
+        'signup_form': signup_form
+    }
+    return render(request, 'login_signup.html', context)

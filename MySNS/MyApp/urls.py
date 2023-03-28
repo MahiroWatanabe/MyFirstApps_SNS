@@ -2,7 +2,8 @@ from django.urls import path
 from django.views.generic import RedirectView
 from django.contrib.auth.views import LoginView, LogoutView
 
-from .views import UserPostListView, TalkView, PostView, MyPageView, PostDetailView, TalkDetailView, post_like, SignupView
+from .views import UserPostListView, TalkView, PostView, MyPageView, PostDetailView, TalkDetailView, SignupView
+from .views import post_like, login_signup
 
 app_name = 'MyApp'
 
@@ -24,6 +25,8 @@ urlpatterns = [
 
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='MyApp:login'), name='logout'),
+
+    path('login_signup/', login_signup, name='login_signup'),
 
     # path("detail/<int:pk>", detailfunc, name='detail'),
     # path("good/<int:pk>", goodfunc, name='good'),

@@ -127,4 +127,4 @@ LOGIN_REDIRECT_URL = 'MyApp:index'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
-AUTH_USER_MODEL = 'MyApp.CustomUser'
+# AUTH_USER_MODEL = 'MyApp.CustomUser'

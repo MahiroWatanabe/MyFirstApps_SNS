@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class CustomUser(AbstractUser):
-    email = models.EmailField(blank=True, unique=True)
-    github_id = models.CharField(max_length=100, blank=True, null=True)
+# class CustomUser(AbstractUser):
+#     email = models.EmailField(blank=True, unique=True)
+#     github_id = models.CharField(max_length=100, blank=True, null=True)
 
 class Post(models.Model):
     CATEGORY_CHOICES = (
@@ -21,7 +21,7 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='post_images/', null=True, blank=True)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='AI')
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='post_likes', blank=True)
+    likes = models.ManyToManyField(User, related_name='post_likes', blank=True)
 
     def __str__(self):
         return self.title
@@ -33,7 +33,7 @@ class Post(models.Model):
 
 class PostLike(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('post', 'user')
@@ -42,12 +42,12 @@ class PostLike(models.Model):
 
 class PostRead(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Talk(models.Model):
     content = models.TextField(max_length=500)
     date_posted = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.content
@@ -58,9 +58,9 @@ class Talk(models.Model):
 
 class TalkLike(models.Model):
     talk = models.ForeignKey(Talk, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class TalkRead(models.Model):
     talk = models.ForeignKey(Talk, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
  

@@ -20,6 +20,8 @@
     <p>Author:{{ post.author }}</p>
     <p>Category:{{ post.category }}</p>
     <p>Like:{{ postlike_count }}</p>
+    {{ post.image }}
+    <img src="{{ post.image.url }}">
     <div class="card-header">
         {% if is_user_liked_for_post %}
         <button type="button" id="ajax-like-for-post" style="border:none;background:none">

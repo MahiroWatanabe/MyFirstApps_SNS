@@ -1,5 +1,6 @@
 {% extends 'base2.html' %}
 {% load static %}
+
 {% block main-talk-post %}
 <section class="picktalk">
     {% for talk in talks %}
@@ -20,5 +21,12 @@
         <p>No posts yet.</p>
     {% endfor %}
 </section>
-
 {% endblock main-talk-post %}
+
+{% block main-create %}
+<a href="{% url 'MyApp:create' %}">新規投稿を作成</a>
+{% endblock main-create %}
+
+{% block main-create2 %}
+<a href="{% url 'MyApp:create' %}"><span>+</span></a>
+{% endblock main-create2 %}

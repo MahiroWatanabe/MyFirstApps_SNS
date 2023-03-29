@@ -39,6 +39,7 @@ main {
     display: flex;
     align-items: center;
     z-index: 100;
+    box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.2);
 
 
     &__inner{
@@ -368,8 +369,78 @@ main {
         padding-bottom: 10px;
     }
 
+    &__create{
+        position: fixed;
+        bottom: 20%;
+        right: 10%;
+
+        @include mq(lg){
+            bottom: 15%;
+            right: 3%;
+        }
+        @include mq(xl){
+            bottom: 15%;
+            right: 5%;
+        }
+    }
+
+    &__btn{
+        background-color: #37d549;
+        color: $cWhite;
+        padding: 30px;
+        font-size: 20px;
+        font-weight: 50;
+        cursor: pointer;
+        border: none;
+        border-radius: 5%;
+        transition: transform 0.5s;
+        box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.3);
+        display: none;
+
+        @include mq(lg){
+            padding: 20px;
+            font-weight: 300;
+            display: inline;
+        }
+        @include mq(xl){
+            padding: 25px;
+            font-weight: 600;
+            display: inline;
+        }
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
+
+    &__add{
+        display: inline;
+        background-color: #37d549;
+        color: $cWhite;
+        padding: 10px;
+        font-size: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        border-radius: 50%;
+        transition: transform 0.5s;
+        box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.3);
+
+        @include mq(md){
+            
+        }
+        @include mq(lg){
+            display: none;
+        }
+        @include mq(xl){
+            display: none;
+        }
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
 }
 
+// picktalk
 .picktalk{
     &__container{
         position: relative;
@@ -438,3 +509,4 @@ main {
         }
     }
 }
+// picktalk

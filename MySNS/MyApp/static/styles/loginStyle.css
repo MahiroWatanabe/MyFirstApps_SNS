@@ -514,6 +514,12 @@ main {
     width: 40%;
   }
 }
+.picktop__form input::-moz-placeholder {
+  text-align: center;
+}
+.picktop__form input::placeholder {
+  text-align: center;
+}
 .picktop__titile {
   margin-bottom: 15px;
   text-shadow: 3px 3px 2px #000;
@@ -525,12 +531,6 @@ main {
 }
 .picktop__p.pas {
   margin-bottom: 30px;
-}
-.picktop input::-moz-placeholder {
-  text-align: center;
-}
-.picktop input::placeholder {
-  text-align: center;
 }
 .picktop__btn {
   background-color: #dadada;
@@ -580,7 +580,6 @@ main {
 }
 .modal-wrapper .modal {
   position: relative;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -600,6 +599,9 @@ main {
   cursor: pointer;
   border: none;
   background-color: transparent;
+}
+.modal-wrapper .modal .h2-justify {
+  margin-bottom: 30px;
 }
 
 .form-group {

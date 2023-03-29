@@ -29,26 +29,27 @@
                 <div class="modal-wrapper">
                   <div class="modal">
                     <button class="close-button">&times;</button>
-                    <h2>アカウント登録</h2>
-                    <!-- <form>
-                      <div class="form-group">
-                        <label for="name">名前</label>
-                        <input type="text" id="name" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="email">メールアドレス</label>
-                        <input type="email" id="email" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="password">パスワード</label>
-                        <input type="password" id="password" required>
-                      </div>
-                      <button class="submit-button">アカウントを作成</button>
-                    </form> -->
+                    <h2 class="h2-justify">アカウント登録</h2>
                     <form method="post">
                       {% csrf_token %}
-                      {{ signup_form.as_p }}
-                      <button type="submit" name="signup_form_submit">SIGN UP</button> <!-- button の name タグにサインアップなら signup_form_submit ログインなら login_form_submit -->
+                      <div class="form-group">
+                        <input type="text" placeholder="ユーザー名" name="username" maxlength="150" autofocus="" required="" id="id_username">
+                      </div>
+                      <div class="form-group">
+                        <input type="email" placeholder="メールアドレス" name="email" id="id_email">
+                      </div>
+                      <div class="form-group">
+                        <input type="password" placeholder="パスワード" name="password1" autocomplete="new-password" required="" id="id_password1">
+                      </div>
+                      <div class="form-group">
+                        <input type="password" placeholder="パスワード(確認用)" name="password2" autocomplete="new-password" required="" id="id_password2">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" placeholder="Github id" name="github_id" maxlength="100" id="id_github_id">
+                      </div>
+                      <div class="button-justify">
+                        <button type="submit" class="submit-button" name="signup_form_submit">SIGN UP</button> <!-- button の name タグにサインアップなら signup_form_submit ログインなら login_form_submit -->
+                      </div>
                     </form>
                   </div>
                 </div>

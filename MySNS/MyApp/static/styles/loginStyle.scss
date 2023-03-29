@@ -189,6 +189,9 @@ main {
         @include mq(lg){
             width: 40%;
         }
+        & input::placeholder {
+            text-align: center;
+        }
     }
 
     &__titile{
@@ -206,9 +209,6 @@ main {
         }
     }
 
-    input::placeholder {
-        text-align: center;
-    }
     
     &__btn{
         background-color: #dadada;
@@ -263,7 +263,7 @@ main {
     
     .modal {
       position: relative;
-      display: flex;
+    //   display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -283,6 +283,10 @@ main {
         cursor: pointer;
         border: none;
         background-color: transparent;
+      }
+
+      .h2-justify{
+        margin-bottom: 30px;
       }
     }
   }

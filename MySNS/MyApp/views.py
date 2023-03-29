@@ -97,15 +97,13 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class MyPageView(ListView):
+class MyPageView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'myPage.html'
-    # context_object_name = 'posts'
+    context_object_name = 'myPosts'
     
-    # def get_queryset(self):
-    #     author_id = self.kwargs.get('author_id')
-    #     # return Post.objects.filter(author_id=author_id)
-    #     return Post.objects.filter()
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user)
 
 class SignupView(CreateView):
     form_class = UserCreationForm

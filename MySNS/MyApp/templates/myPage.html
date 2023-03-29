@@ -1,6 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main-content %}
-mypage
-<a href="{% url 'MyApp:index' %}"><button>index</button></a>
+<section class="mypage">
+    <div class="mypage__header">
+        <h2 class="main-title">Profile</h2>
+        <p class="sub-title pickup__sub-title">自分のページ</p>
+    </div>
+
+    <div class="mypage__inner">
+        <!-- @ .flex3を継承する -->
+        <div class="mypage__container">
+            <!-- flex-direction:column -->
+            <div class="mypage__left">
+                <p class="mypage__name"></p>
+                <img src="" alt="">
+                <button class="mypage__setting">プロフィールの編集</button>
+            </div>
+            <div class="mypage__right">
+
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock main-content %}

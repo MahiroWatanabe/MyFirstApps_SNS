@@ -514,3 +514,38 @@ main {
     }
 }
 // picktalk
+
+// mypage
+.mypage{
+    margin-top: 100px;
+    margin-bottom: 50px !important;
+    &__header{
+        @extend .content-width;
+    }
+
+    &__inner{
+
+    }
+
+    &__container{
+
+    }
+
+    &__left{
+
+    }
+
+    &__name{
+
+    }
+
+    &__setting{
+
+    }
+
+    &__right{
+
+    }
+
+}
+// mypage

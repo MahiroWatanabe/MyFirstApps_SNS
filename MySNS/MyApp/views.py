@@ -163,4 +163,4 @@ def login_signup(request):
         'login_form': login_form,
         'signup_form': signup_form
     }
-    return render(request, 'login_signup.html', context)
+    return render(request, 'login.html', context)

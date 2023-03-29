@@ -23,7 +23,8 @@ urlpatterns = [
 
     path('signup/', SignupView.as_view(), name='signup'),
 
-    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
+    # path('login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('login/', login_signup, name='login'),
     path('logout/', LogoutView.as_view(next_page='MyApp:login'), name='logout'),
 
     path('login_signup/', login_signup, name='login_signup'),

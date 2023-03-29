@@ -14,6 +14,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
 from .models import Post, PostLike, Talk
+from .forms import CustomUserCreationForm
 
 class UserPostListView(ListView):
     model = Post
@@ -135,7 +136,7 @@ def post_like(request):
 
 def login_signup(request):
     login_form = AuthenticationForm(request=request)
-    signup_form = UserCreationForm()
+    signup_form = CustomUserCreationForm()
     
     if request.method == 'POST':
         if 'login_form_submit' in request.POST:

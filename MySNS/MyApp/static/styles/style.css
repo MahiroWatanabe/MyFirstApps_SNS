@@ -745,6 +745,10 @@ main {
 .picktext__add:hover {
   transform: scale(1.1);
 }
+.picktext a {
+  text-decoration: none;
+  color: white;
+}
 
 .picktalk__container {
   position: relative;

@@ -523,6 +523,9 @@ main {
   border: none;
   box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
 }
+.picktop__p.pas {
+  margin-bottom: 30px;
+}
 .picktop input::-moz-placeholder {
   text-align: center;
 }
@@ -572,7 +575,7 @@ main {
   display: none;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.7);
   z-index: 999;
 }
 .modal-wrapper .modal {
@@ -589,10 +592,48 @@ main {
 }
 .modal-wrapper .modal .close-button {
   position: absolute;
-  top: 20px;
+  top: 0px;
   right: 20px;
-  font-size: 24px;
+  font-size: 55px;
   font-weight: bold;
   color: #999;
   cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.form-group label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.form-group input {
+  height: 40px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+.form-group input:focus {
+  border-color: #3b5998;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #3b5998;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+.submit-button:hover {
+  background-color: #2d4373;
 }/*# sourceMappingURL=loginStyle.css.map */

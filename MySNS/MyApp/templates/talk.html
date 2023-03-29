@@ -1,25 +1,24 @@
 {% extends 'base2.html' %}
 {% load static %}
 {% block main-talk-post %}
-talk
-<a href="{% url 'MyApp:index' %}"><button>index</button></a>
-{% comment %} {% for talk in talks %}
-    <div class="picktext__item">
-        <div class="picktext__header">
-            <div class="picktext__img">
-                <img src="" alt="">
+<section class="picktalk">
+    {% for talk in talks %}
+    <div class="picktalk__container">
+        <div class="picktalk__header">
+            <div class="round-image-container">
+                <img src="{% static 'images/image-p1.jpg' %}" class="picktalk__img" alt="icon">
             </div>
-            <div class="picktext__user">
-                <p>Author: {{ talk.author }}</p>
-                <p>ID: {{ talk.author_id }}</p>
-                <p>{{ talk.date_posted|date:"F j, Y" }}</p>      
+            <div class="picktalk__author">
+                <p style="margin-right: 10px;">{{ talk.author }}</p>
+                <p class="picktalk__author"> ID: {{ talk.author_id }}</p>
             </div>
         </div>
-        <div class="picktext__body">
-            <p class="pickup__content">{{ talk.content }}</p>
-        </div>
+        <p class="picktalk__data">{{ talk.date_posted|date:"F j, Y" }}</p>      
+        <p class="picktalk__p">{{ talk.content }}</p>
     </div>
-{% empty %}
-    <p>No posts yet.</p>
-{% endfor %} {% endcomment %}
+    {% empty %}
+        <p>No posts yet.</p>
+    {% endfor %}
+</section>
+
 {% endblock main-talk-post %}

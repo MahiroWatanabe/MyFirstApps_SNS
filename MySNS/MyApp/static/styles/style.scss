@@ -319,21 +319,23 @@ main {
         position: relative;
         padding-top: $navHeight;
         @extend .content-width2;
+        box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.2);
     }
 
     
     &__header{
+        position: fixed;
+        width: 50%;
+        z-index: 1;
         background-color: $cWhite;
         height: 100px;
-        border: 0.5px solid rgba(0, 0, 0, 0.5);
+        border: 0.2px solid rgba(0, 0, 0, 0.0);
     }
 
     &__inner{
+        position: relative;
         background-color: $cBgGray;
-        height: 100px;
-    }
-    
-    &__contaniner{
+        margin-top: 100px;
     }
 
     &__search{
@@ -349,11 +351,90 @@ main {
         @extend .flex2;
         list-style: none;
         justify-content: space-around;
+        padding-left: 0 !important;
+        @include mq(sm){
+            padding-left: 40px !important;
+        }
     }
 
     &__li{
         margin-top: 10px;
         margin-left: 0;
         margin-right: 30px;
+    }
+    
+    &__container{
+        padding: 30px;
+        padding-bottom: 10px;
+    }
+
+}
+
+.picktalk{
+    &__container{
+        position: relative;
+        background-color: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    &__header{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 20px;
+        & .round-image-container{
+            display: inline-block;
+            position: relative;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            @include mq(lg){
+                width: 70px;
+                height: 70px;
+                margin-right: 20px;
+            }
+            overflow: hidden;
+            border-radius: 50%;
+        }
+    }
+    
+    &__img{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%;
+        min-height: 100%;
+    }
+
+    &__author{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 10px;
+        @include mq(lg){
+            font-size: 14px;
+        }
+    }
+    
+    &__data{
+        position: absolute;
+        top: 28px;
+        font-size: 10px;
+        @include mq(lg){
+            top: 43px;
+            font-size: 14px;
+        }
+        right: 5%;
+    }
+
+    &__p{
+        font-size: 10px;
+        @include mq(lg){
+            font-size: 14px;
+        }
     }
 }

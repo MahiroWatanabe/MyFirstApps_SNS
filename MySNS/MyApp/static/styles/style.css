@@ -629,15 +629,20 @@ main {
 .picktext__all {
   position: relative;
   padding-top: 100px;
+  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.2);
 }
 .picktext__header {
+  position: fixed;
+  width: 50%;
+  z-index: 1;
   background-color: white;
   height: 100px;
-  border: 0.5px solid rgba(0, 0, 0, 0.5);
+  border: 0.2px solid rgba(0, 0, 0, 0);
 }
 .picktext__inner {
+  position: relative;
   background-color: #eaebe6;
-  height: 100px;
+  margin-top: 100px;
 }
 .picktext__search {
   display: block;
@@ -650,9 +655,89 @@ main {
 .picktext__ul {
   list-style: none;
   justify-content: space-around;
+  padding-left: 0 !important;
+}
+@media screen and (min-width: 480px) {
+  .picktext__ul {
+    padding-left: 40px !important;
+  }
 }
 .picktext__li {
   margin-top: 10px;
   margin-left: 0;
   margin-right: 30px;
+}
+.picktext__container {
+  padding: 30px;
+  padding-bottom: 10px;
+}
+
+.picktalk__container {
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.2);
+}
+.picktalk__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.picktalk__header .round-image-container {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+@media screen and (min-width: 960px) {
+  .picktalk__header .round-image-container {
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+  }
+}
+.picktalk__img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+}
+.picktalk__author {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 10px;
+}
+@media screen and (min-width: 960px) {
+  .picktalk__author {
+    font-size: 14px;
+  }
+}
+.picktalk__data {
+  position: absolute;
+  top: 28px;
+  font-size: 10px;
+  right: 5%;
+}
+@media screen and (min-width: 960px) {
+  .picktalk__data {
+    top: 43px;
+    font-size: 14px;
+  }
+}
+.picktalk__p {
+  font-size: 10px;
+}
+@media screen and (min-width: 960px) {
+  .picktalk__p {
+    font-size: 14px;
+  }
 }/*# sourceMappingURL=style.css.map */

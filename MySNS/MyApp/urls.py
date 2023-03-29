@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import RedirectView
 from django.contrib.auth.views import LoginView, LogoutView
 
-from .views import UserPostListView, TalkView, PostView, MyPageView, PostDetailView, TalkDetailView, SignupView
+from .views import UserPostListView, TalkView, PostView, MyPageView, PostDetailView, TalkDetailView, SignupView, PostCreateView, TalkCreateView
 from .views import post_like, login_signup
 
 app_name = 'MyApp'
@@ -13,9 +13,11 @@ urlpatterns = [
     path('index/', UserPostListView.as_view(), name="index"),
 
     path('talk/', TalkView.as_view(), name="talk"),
+    path('talk/create', TalkCreateView.as_view(), name="talk_create"),
     path('talk/<int:pk>/', TalkDetailView.as_view(), name='post_detail'),
 
     path('post/', PostView.as_view(), name="post"),
+    path('post/create', PostCreateView.as_view(), name="post_create"),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
     path('post_like/', post_like, name='post_like'),
     

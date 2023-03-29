@@ -8,6 +8,7 @@ from django.db.models import Count
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.http import JsonResponse
 
@@ -26,6 +27,8 @@ class UserPostListView(ListView):
         # return Post.objects.filter(author_id=author_id)
         return Post.objects.filter()
 
+#-----Talkモデル-------
+
 class TalkView(ListView):
     model = Talk
     template_name = 'talk.html'
@@ -41,10 +44,17 @@ class TalkDetailView(ListView):
     template_name = 'talk.html'
     context_object_name = 'talks'
 
-class TalkCreateView(CreateView):
+class TalkCreateView(LoginRequiredMixin, CreateView):
     model = Talk
-    template_name = 'talk.html'
-    context_object_name = 'talks'
+    fields = ['content']
+    template_name = 'talk_create.html'
+    success_url = reverse_lazy('MyApp:talk')
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+#------Postモデル-----
 
 class PostView(ListView):
     model = Post
@@ -77,15 +87,15 @@ class PostDetailView(DetailView):
 
         return context
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    template_name = 'post.html'
-    # context_object_name = 'posts'
+    fields = ['title', 'content', 'image', 'category']
+    template_name = 'post_create.html'
+    success_url = reverse_lazy('MyApp:post')
     
-    # def get_queryset(self):
-    #     author_id = self.kwargs.get('author_id')
-    #     # return Post.objects.filter(author_id=author_id)
-    #     return Post.objects.filter()
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 class MyPageView(ListView):
     model = Post

@@ -1,27 +1,33 @@
 {% extends 'base2.html' %}
 {% load static %}
+
 {% block main-talk-post %}
-post
-<a href="{% url 'MyApp:index' %}"><button>index</button></a>
-{% comment %}
-{% for post in posts %}
-    <div class="picktext__item">
-        <div class="picktext__header">
-            <div class="picktext__img">
-                <img src="" alt="">
-            </div>
-            <div class="picktext__user">
+
+
+
+<section class="pickpost">
+    {% for post in posts %}
+    <div class="pickpost__container">
+        <p><img src="{{ post.image.url }}" alt="post image"></p>
+        <div class="pickpost__body">
+            <div class="pickpost__author">
                 <p>Author: {{ post.author }}</p>
                 <p>ID: {{ post.author_id }}</p>
-                <p>{{ post.date_posted|date:"F j, Y" }}</p>      
             </div>
-        </div>
-        <div class="picktext__body">
-            <p class="pickup__content">{{ post.content }}</p>
+            <p class="pickpost__data">{{ post.date_posted|date:"F j, Y" }}</p>
+            <p class="pickpost__content">{{ post.content }}</p>
         </div>
     </div>
-{% empty %}
-    <p>No posts yet.</p>
-{% endfor %}
-{% endcomment %}
+    {% empty %}
+        <p>No posts yet.</p>
+    {% endfor %}
+</section>
 {% endblock main-talk-post %}
+
+{% block main-create %}
+<a href="{% url 'MyApp:post_create' %}">新規投稿を作成</a>
+{% endblock main-create %}
+
+{% block main-create2 %}
+<a href="{% url 'MyApp:post_create' %}"><span>+</span></a>
+{% endblock main-create2 %}

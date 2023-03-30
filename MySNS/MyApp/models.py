@@ -23,7 +23,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    image1 = models.ImageField(upload_to='post_images/', null=True, blank=True)
+    image = models.ImageField(upload_to='post_images/', null=True, blank=True)
     image2 = models.ImageField(upload_to='post_images/', null=True, blank=True)
     image3 = models.ImageField(upload_to='post_images/', null=True, blank=True)
     image4 = models.ImageField(upload_to='post_images/', null=True, blank=True)

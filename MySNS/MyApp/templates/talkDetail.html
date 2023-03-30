@@ -1,4 +1,75 @@
-<p>ID:{{ talk.id }}</p>
-<p>CONTENT:{{ talk.content }}</p>
-<p>LIKE:{{ talklike_count }}</p>
-<p>VIEWS:{{ talk.views }}</p>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block javaScript %}
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.css" rel="stylesheet" />
+{% endblock javaScript %}
+
+{% block main-content %}
+    <h1>{{ talk.id }}</h1>
+    <h1>{{ talk.id }}</h1>
+    <h1>{{ talk.id }}</h1>
+    <p>ID:{{ talk.id }}</p>
+    <p>Content:{{ talk.content }}</p>
+    <p>Author:{{ talk.author }}</p>
+    <p>Like:{{ talklike_count }}</p>
+    <p>Views:{{ talk.views }}</p>
+
+    <div class="card-header">
+        {% if is_user_liked_for_talk %}
+        <button type="button" id="ajax-like-for-talk" style="border:none;background:none">
+          <!-- すでにイイねしている時はfasクラス -->
+          <i class="fas fa-heart text-danger" id="talk-for-talk-icon"></i>
+        </button>
+        {% else %}
+        <button type="button" id="ajax-like-for-talk" style="border:none;background:none">
+          <!-- イイねしていないときはfarクラス -->
+          <i class="far fa-heart text-danger" id="like-for-talk-icon"></i>
+        </button>
+        {% endif %}
+        <!-- イイねの数 -->
+        <span id="talklike_count">{{ talklike_count }}</span>
+        <span>件のイイね</span>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+          /* ポストに対するイイね */
+          document.getElementById('ajax-like-for-talk').addEventListener('click', e => {
+            e.preventDefault();
+            const url = '{% url "MyApp:talk_like" %}';
+            fetch(url, {
+              method: 'POST',
+              body: `talk_pk={{talk.pk}}`,
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'X-CSRFToken': '{{ csrf_token }}',
+              },
+            }).then(response => {
+                return response.json();
+            }).then(response => {
+            // イイね数を書き換える
+            const counter = document.getElementById('talklike_count')
+            counter.textContent = response.talklike_count
+            const icon = document.getElementById('like-for-talk-icon')
+            // 作成した場合はハートを塗る
+            if (response.method == 'create') {
+                icon.classList.remove('far')
+                icon.classList.add('fas')
+                icon.id = 'like-for-talk-icon'
+            } else {
+                icon.classList.remove('fas')
+                icon.classList.add('far')
+                icon.id = 'like-for-talk-icon'
+            }
+            }).catch(error => {
+            console.log(error);
+            });
+        });
+        </script>
+{% endblock main-content %}

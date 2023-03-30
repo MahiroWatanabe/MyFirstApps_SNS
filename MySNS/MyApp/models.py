@@ -21,7 +21,7 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField(max_length=1000)
     date_posted = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     image = models.ImageField(upload_to='post_images/', null=True, blank=True)
     image2 = models.ImageField(upload_to='post_images/', null=True, blank=True)

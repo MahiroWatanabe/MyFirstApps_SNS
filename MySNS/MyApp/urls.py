@@ -14,7 +14,7 @@ urlpatterns = [
 
     path('talk/', TalkView.as_view(), name="talk"),
     path('talk/create', TalkCreateView.as_view(), name="talk_create"),
-    path('talk/<int:pk>/', TalkDetailView.as_view(), name='post_detail'),
+    path('talk/<int:pk>/', TalkDetailView.as_view(), name='talk_detail'),
 
     path('post/', PostView.as_view(), name="post"),
     path('post/create', PostCreateView.as_view(), name="post_create"),

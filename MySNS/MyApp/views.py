@@ -27,7 +27,7 @@ class UserPostListView(ListView):
         # return Post.objects.filter(author_id=author_id)
         return Post.objects.filter()
 
-#-----Talkモデル-------
+#-----Talk-------
 
 class TalkView(ListView):
     model = Talk
@@ -39,10 +39,23 @@ class TalkView(ListView):
     #     # return Post.objects.filter(author_id=author_id)
     #     return Post.objects.filter()
 
-class TalkDetailView(ListView):
+class TalkDetailView(DetailView):
     model = Talk
-    template_name = 'talk.html'
-    context_object_name = 'talks'
+    template_name = 'talkDetail.html'
+    context_object_name = 'talk'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        talklike_count = self.object.talklike_set.count()
+        # ポストに対するイイね数
+        context['talklike_count'] = talklike_count
+        # ログイン中のユーザーがイイねしているかどうか
+        if self.object.talklike_set.filter(user=self.request.user).exists():
+            context['is_user_liked_for_talk'] = True
+        else:
+            context['is_user_liked_for_talk'] = False
+
+        return context
 
 class TalkCreateView(LoginRequiredMixin, CreateView):
     model = Talk
@@ -54,7 +67,7 @@ class TalkCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-#------Postモデル-----
+#------Post-----
 
 class PostView(ListView):
     model = Post

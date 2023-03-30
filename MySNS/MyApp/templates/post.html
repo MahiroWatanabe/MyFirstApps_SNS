@@ -8,15 +8,20 @@
 <section class="pickpost">
     {% for post in posts %}
     <div class="pickpost__container">
-        <p><img src="{{ post.image.url }}" alt="post image"></p>
-        <div class="pickpost__body">
-            <div class="pickpost__author">
-                <p>Author: {{ post.author }}</p>
-                <p>ID: {{ post.author_id }}</p>
-            </div>
-            <p class="pickpost__data">{{ post.date_posted|date:"F j, Y" }}</p>
-            <p class="pickpost__content">{{ post.content }}</p>
+        <div class="pickpost__imgcontainer">
+            <img src="{{ post.image.url }}" class="pickpost__img" alt="post image">
         </div>
+        <div class="pickpost__body">
+            <div class="pickpost__author-data">
+                <div class="pickpost__author">
+                    <p style="margin-right:5px;">{{ post.author }}</p>
+                    <p>ID: {{ post.author_id }}</p>
+                </div>
+                <p class="pickpost__data">{{ post.date_posted|date:"F j, Y" }}</p>
+            </div>
+            <p class="pickpost__content">{{ post.content|truncatechars:55 }}</p>
+        </div>
+        <button class="pickpost__btn"><a href="{% url 'MyApp:post_detail' pk=post.pk %}" class="pickpost__a">詳細を見る</a></button>
     </div>
     {% empty %}
         <p>No posts yet.</p>
@@ -25,9 +30,9 @@
 {% endblock main-talk-post %}
 
 {% block main-create %}
-<a href="{% url 'MyApp:post_create' %}">新規投稿を作成</a>
+<a class="picktext__a" href="{% url 'MyApp:post_create' %}">新規投稿を作成</a>
 {% endblock main-create %}
 
 {% block main-create2 %}
-<a href="{% url 'MyApp:post_create' %}"><span>+</span></a>
+<a class="picktext__a" href="{% url 'MyApp:post_create' %}"><span>+</span></a>
 {% endblock main-create2 %}

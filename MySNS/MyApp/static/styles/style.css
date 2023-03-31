@@ -823,33 +823,100 @@ main {
 .pickpost__container {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background-color: white;
-  padding: 20px;
+  padding: 10px;
+  border-radius: 1%;
+  box-shadow: 0px 0px 20px 2px rgba(0, 0, 0, 0.2);
+}
+@media screen and (min-width: 960px) {
+  .pickpost__container {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .pickpost__container {
+    padding: 15px;
+  }
 }
 .pickpost__imgcontainer {
-  width: 50%;
-  height: 50%;
+  display: flex;
   margin-right: 15px;
 }
+.pickpost__img {
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
+}
 .pickpost__body {
+  position: relative;
   max-width: 50%;
 }
 .pickpost__author-data {
   display: flex;
-  justify-content: space-between;
-  margin-top: -50px;
-  margin-bottom: 15px;
+  justify-content: flex-start;
+  align-items: center;
+}
+.pickpost__author-data .round-image-container {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+@media screen and (min-width: 960px) {
+  .pickpost__author-data .round-image-container {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .pickpost__author-data .round-image-container {
+    width: 50px;
+    height: 50px;
+  }
+}
+.pickpost__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
 }
 .pickpost__author {
   display: flex;
   justify-content: flex-start;
+  font-size: 10px;
+}
+@media screen and (min-width: 960px) {
+  .pickpost__author {
+    font-size: 14px;
+  }
+}
+.pickpost__data {
+  text-align: end;
+  font-size: 10px;
+}
+@media screen and (min-width: 960px) {
+  .pickpost__data {
+    font-size: 14px;
+  }
+}
+.pickpost__content {
+  margin-top: 15px;
+  font-size: 8px;
+}
+@media screen and (min-width: 960px) {
+  .pickpost__content {
+    font-size: 12px;
+  }
 }
 .pickpost__btn {
-  position: absolute;
-  top: 78%;
-  right: 3%;
   border: none;
   background-color: #eaebe6;
 }

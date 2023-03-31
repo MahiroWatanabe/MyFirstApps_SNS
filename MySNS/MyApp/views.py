@@ -42,6 +42,19 @@ class PostView(ListView):
             queryset = queryset.order_by('-date_posted')
         return queryset
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        postlike_count = self.object.postlike_set.count()
+        # ポストに対するイイね数
+        context['postlike_count'] = postlike_count
+        # ログイン中のユーザーがイイねしているかどうか
+        if self.object.postlike_set.filter(user=self.request.user).exists():
+            context['is_user_liked_for_post'] = True
+        else:
+            context['is_user_liked_for_post'] = False
+
+        return context
+    
 class PostDetailView(DetailView):
     model = Post
     template_name = 'postDetail.html'
@@ -98,10 +111,27 @@ class TalkView(ListView):
     template_name = 'talk.html'
     context_object_name = 'talks'
     
-    # def get_queryset(self):
-    #     author_id = self.kwargs.get('author_id')
-    #     # return Post.objects.filter(author_id=author_id)
-    #     return Post.objects.filter()
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if 'popularity' in self.request.GET:
+            queryset = queryset.annotate(num_likes=Count('talklike')).order_by('-num_likes')
+        else:
+            queryset = queryset.order_by('-date_posted')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        talklike_count = self.object.talklike_set.count()
+        # ポストに対するイイね数
+        context['talklike_count'] = talklike_count
+        # ログイン中のユーザーがイイねしているかどうか
+        if self.object.talklike_set.filter(user=self.request.user).exists():
+            context['is_user_liked_for_talk'] = True
+        else:
+            context['is_user_liked_for_talk'] = False
+
+        return context
+
 
 class TalkDetailView(DetailView):
     model = Talk

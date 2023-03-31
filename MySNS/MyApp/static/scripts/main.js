@@ -12,3 +12,36 @@ function searchOnEnter(event) {
   }
   return true;
 }
+
+/* ポストに対するイイね */
+document.getElementById('ajax-like-for-post').addEventListener('click', e => {
+  e.preventDefault();
+  const url = '{% url "MyApp:post_like" %}';
+  fetch(url, {
+    method: 'POST',
+    body: `post_pk={{post.pk}}`,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+      'X-CSRFToken': '{{ csrf_token }}',
+    },
+  }).then(response => {
+      return response.json();
+  }).then(response => {
+  // イイね数を書き換える
+  const counter = document.getElementById('postlike_count')
+  counter.textContent = response.postlike_count
+  const icon = document.getElementById('like-for-post-icon')
+  // 作成した場合はハートを塗る
+  if (response.method == 'create') {
+      icon.classList.remove('far')
+      icon.classList.add('fas')
+      icon.id = 'like-for-post-icon'
+  } else {
+      icon.classList.remove('fas')
+      icon.classList.add('far')
+      icon.id = 'like-for-post-icon'
+  }
+  }).catch(error => {
+  console.log(error);
+  });
+});

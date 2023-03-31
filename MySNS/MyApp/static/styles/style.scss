@@ -542,7 +542,12 @@ main {
         display: flex;
         // width: 50%;
         // height: 50%;
-        margin-right: 15px;
+        margin: 10px;
+        width: 50%;
+        object-fit: cover;
+        @include mq(lg){
+            margin-right: 15px;
+        }
     }
 
     &__img{
@@ -552,12 +557,16 @@ main {
     &__body{
         position: relative;
         max-width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 10px;
     }
 
     &__author-data{
         display: flex;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-end;
 
         & .round-image-container{
             display: inline-block;
@@ -610,10 +619,23 @@ main {
     }
 
     &__content{
-        margin-top: 15px;
+        margin-top: 8px;
         font-size: 8px;
         @include mq(lg){
             font-size: 12px;
+        }
+    }
+
+    &__operation{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 10px;
+        @include mq(lg){
+            font-size: 10px;
+        }
+        @include mq(xl){
+            font-size: 13px;
         }
     }
 

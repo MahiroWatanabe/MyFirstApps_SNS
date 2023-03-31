@@ -42,18 +42,18 @@ class PostView(ListView):
             queryset = queryset.order_by('-date_posted')
         return queryset
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        postlike_count = self.object.postlike_set.count()
-        # ポストに対するイイね数
-        context['postlike_count'] = postlike_count
-        # ログイン中のユーザーがイイねしているかどうか
-        if self.object.postlike_set.filter(user=self.request.user).exists():
-            context['is_user_liked_for_post'] = True
-        else:
-            context['is_user_liked_for_post'] = False
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     postlike_count = self.object.postlike_set.count()
+    #     # ポストに対するイイね数
+    #     context['postlike_count'] = postlike_count
+    #     # ログイン中のユーザーがイイねしているかどうか
+    #     if self.object.postlike_set.filter(user=self.request.user).exists():
+    #         context['is_user_liked_for_post'] = True
+    #     else:
+    #         context['is_user_liked_for_post'] = False
 
-        return context
+    #     return context
     
 class PostDetailView(DetailView):
     model = Post

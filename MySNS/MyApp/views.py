@@ -83,6 +83,16 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
+from django.views import View
+
+class PostJsonView(View):
+    def get(self, request, *args, **kwargs):
+        posts = Post.objects.all()
+        data = list(posts.values())
+        return JsonResponse(data, safe=False)
+
+
 @require_POST
 @login_required
 def post_like(request):

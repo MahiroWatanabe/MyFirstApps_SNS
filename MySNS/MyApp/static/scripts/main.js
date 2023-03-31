@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     new MobileMenu;
 });
 
+// 使ってない
 function searchOnEnter(event) {
   if (event.keyCode === 13) { // Enterキーが押された場合
     var searchText = event.target.value; // inputタグの値を取得
@@ -12,6 +13,10 @@ function searchOnEnter(event) {
   }
   return true;
 }
+
+// ウィンドウサイズに応じて表示する文字数を制限する
+const windowWidth = window.innerWidth;
+let limit;
 
 /* ポストに対するイイね */
 document.getElementById('ajax-like-for-post').addEventListener('click', e => {

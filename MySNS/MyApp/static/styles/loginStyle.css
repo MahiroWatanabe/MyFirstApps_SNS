@@ -249,7 +249,7 @@ img {
 .mobile-menu {
   position: fixed;
   right: 0;
-  top: 60px;
+  top: 50px;
   width: 300px;
 }
 .mobile-menu .logo {

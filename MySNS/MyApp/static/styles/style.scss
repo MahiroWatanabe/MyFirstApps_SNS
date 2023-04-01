@@ -665,10 +665,10 @@ main {
 
 // mypage
 .mypage{
-    margin-top: 100px;
+    margin-top: 150px;
     margin-bottom: 50px !important;
+    @extend .content-width;
     &__header{
-        @extend .content-width;
     }
 
     &__inner{
@@ -676,24 +676,58 @@ main {
     }
 
     &__container{
-        
+        @extend .flex3;
+        justify-content: space-around;
+        background-color: $cBgGray;
+        padding: 30px;
     }
 
     &__left{
-
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     &__name{
+        margin-bottom: 20px;
+    }
 
+    &__imgcontainer{
+        width: 300px;
+        height: 300px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 0px 7px 0px rgb(0 0 0);
+        border-radius: 3%;
+    }
+
+    &__img{
+        object-fit: cover;
+        object-position: center center;
+        width: 100%;
+        height: 100%;
     }
 
     &__setting{
-
+        margin: 20px auto;
+        border: 0.1px solid black;
     }
 
     &__right{
-
+        width: 50%;
+        background-color: $cWhite;
+        box-shadow: 0px 0px 10px 0px rgb(0, 0, 0,0.2);
+        border-radius: 3%;
     }
 
 }
 // mypage
+
+//mypost
+
+.mypost{
+    @extend .content-width;
+}

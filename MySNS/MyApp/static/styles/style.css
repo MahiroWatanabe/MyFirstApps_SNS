@@ -54,7 +54,7 @@ img {
   }
 }
 
-.content-width, .header__inner, .pickup__header, .pickup__container, .footer, .mypage__header {
+.content-width, .header__inner, .pickup__header, .pickup__container, .footer, .mypage, .mypost {
   width: 90%;
   margin: 0 auto;
   max-width: 1070px;
@@ -89,12 +89,12 @@ img {
   }
 }
 
-.flex3 {
+.flex3, .mypage__container {
   display: flex;
   flex-direction: column;
 }
 @media screen and (min-width: 960px) {
-  .flex3 {
+  .flex3, .mypage__container {
     flex-direction: row;
     flex-wrap: wrap;
   }
@@ -248,7 +248,7 @@ img {
 .mobile-menu {
   position: fixed;
   right: 0;
-  top: 60px;
+  top: 50px;
   width: 300px;
 }
 .mobile-menu .logo {
@@ -970,6 +970,48 @@ main {
 }
 
 .mypage {
-  margin-top: 100px;
+  margin-top: 150px;
   margin-bottom: 50px !important;
+}
+.mypage__container {
+  justify-content: space-around;
+  background-color: #eaebe6;
+  padding: 30px;
+}
+.mypage__left {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.mypage__name {
+  margin-bottom: 20px;
+}
+.mypage__imgcontainer {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 7px 0px rgb(0, 0, 0);
+  border-radius: 3%;
+}
+.mypage__img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center center;
+     object-position: center center;
+  width: 100%;
+  height: 100%;
+}
+.mypage__setting {
+  margin: 20px auto;
+  border: 0.1px solid black;
+}
+.mypage__right {
+  width: 50%;
+  background-color: white;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 3%;
 }/*# sourceMappingURL=style.css.map */

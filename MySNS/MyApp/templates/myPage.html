@@ -4,7 +4,7 @@
 <section class="mypage">
     <div class="mypage__header">
         <h2 class="main-title">Profile</h2>
-        <p class="sub-title pickup__sub-title">自分のページ</p>
+        <p class="sub-title pickup__sub-title">プロフィールをみてみよう</p>
     </div>
 
     <div class="mypage__inner">
@@ -12,13 +12,47 @@
         <div class="mypage__container">
             <!-- flex-direction:column -->
             <div class="mypage__left">
-                <p class="mypage__name"></p>
-                <img src="" alt="">
+                <h2 class="mypage__name">{{user}}のプロフィール</h2>
+                <div class="mypage__imgcontainer">
+                    <img src="{% static 'images/image-p1.jpg' %}" class="mypage__img" alt="">
+                </div>
                 <button class="mypage__setting">プロフィールの編集</button>
             </div>
             <div class="mypage__right">
-
+                <p>名前</p>
+                <p>自己紹介</p>
+                <p>年齢</p>
+                <p>性別</p>
+                <p>大学</p>
+                <p>SNSアカウント</p>
+                <p>趣味</p>
+                <p>利用できる言語</p>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="mypost">
+    <div class="mypost__header">
+        <h2 class="main-title">User's Post</h2>
+        <p class="sub-title pickup__sub-title">{{user}}の投稿をみてみよう</p>
+    </div>
+
+    <div class="mypost__inner">
+        <div class="mypost__container">
+            {% for post in myPosts %}
+                <div class="mypost__usercontainer">
+                    <div class="mypost__userimgcontainer">
+                        <img src="{{ post.image.url }}" alt="" class="mypost__img">
+                    </div>
+                    <div class="mypost__userbody">
+                        <p>{{ post.title }}</p>
+                        <p>{{ post.category }}</p>
+                        <p>{{ post.content }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
         </div>
     </div>
 </section>

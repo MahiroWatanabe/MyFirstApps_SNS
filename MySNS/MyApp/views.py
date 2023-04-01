@@ -31,7 +31,7 @@ class UserPostListView(ListView):
 
 class PostView(ListView):
     model = Post
-    template_name = 'post.html'
+    template_name = 'post2.html'
     context_object_name = 'posts'
     
     def get_queryset(self):
@@ -41,19 +41,25 @@ class PostView(ListView):
         else:
             queryset = queryset.order_by('-date_posted')
         return queryset
-    
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     postlike_count = self.object.postlike_set.count()
-    #     # ポストに対するイイね数
-    #     context['postlike_count'] = postlike_count
-    #     # ログイン中のユーザーがイイねしているかどうか
-    #     if self.object.postlike_set.filter(user=self.request.user).exists():
-    #         context['is_user_liked_for_post'] = True
-    #     else:
-    #         context['is_user_liked_for_post'] = False
 
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        postlike_counts = []
+        is_user_liked_for_posts = []
+        for post in context['posts']:
+            postlike_count = post.postlike_set.count()
+            postlike_counts.append(postlike_count)
+            
+            if post.postlike_set.filter(user=self.request.user).exists():
+                is_user_liked_for_post = True
+            else:
+                is_user_liked_for_post = False
+            is_user_liked_for_posts.append(is_user_liked_for_post)
+
+        context['postlike_count'] = postlike_counts
+        context['is_user_liked_for_post'] = is_user_liked_for_posts
+
+        return context
     
 class PostDetailView(DetailView):
     model = Post
@@ -128,17 +134,23 @@ class TalkView(ListView):
         else:
             queryset = queryset.order_by('-date_posted')
         return queryset
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        talklike_count = self.object.talklike_set.count()
-        # ポストに対するイイね数
-        context['talklike_count'] = talklike_count
-        # ログイン中のユーザーがイイねしているかどうか
-        if self.object.talklike_set.filter(user=self.request.user).exists():
-            context['is_user_liked_for_talk'] = True
-        else:
-            context['is_user_liked_for_talk'] = False
+        talklike_counts = []
+        is_user_liked_for_talks = []
+        for talk in context['talks']:
+            talklike_count = talk.talklike_set.count()
+            talklike_counts.append(talklike_count)
+
+            if talk.talklike_set.filter(user=self.request.user).exists():
+                is_user_liked_for_talk = True
+            else:
+                is_user_liked_for_talk = False
+            is_user_liked_for_talks.append(is_user_liked_for_talk)
+
+        context['talklike_counts'] = talklike_counts
+        context['is_user_liked_for_talks'] = is_user_liked_for_talks
 
         return context
 

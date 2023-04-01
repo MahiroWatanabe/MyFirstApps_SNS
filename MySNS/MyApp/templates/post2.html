@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block javaScript %}
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.1/mdb.min.css" rel="stylesheet" />
+{% endblock javaScript %}
+
+{% block main-content %}
+
+<section class="pickpost">
+    {% for post in posts %}
+    <div class="pickpost__container">
+        <div class="pickpost__imgcontainer">
+            <img src="{{ post.image.url }}" class="pickpost__img" alt="post image">
+        </div>
+        <div class="pickpost__body">
+            <div class="pickpost__author-data">
+                <div class="round-image-container">
+                    <img src="{% static 'images/image-p1.jpg' %}" class="pickpost__icon" alt="icon">
+                </div>
+                <div class="pickpost__author">
+                    <p style="margin-right:5px;">{{ post.author }}</p>
+                    <p>ID: {{ post.author_id }}</p>
+                </div>
+            </div>
+            <p class="pickpost__data">{{ post.date_posted|date:"m/d/Y" }}</p>
+            <p class="pickpost__content">{{ post.content }}</p>
+            <div class="pickpost__operation">
+                <div class="pickpost__good">
+                    {% if is_user_liked_for_post.0 %}
+                    <button type="button" class="ajax-like-for-post" style="border:none;background:none">
+                    <!-- すでにイイねしている時はfasクラス -->
+                    <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+                    </button>
+                    {% else %}
+                    <button type="button" class="ajax-like-for-post" style="border:none;background:none">
+                    <!-- イイねしていないときはfarクラス -->
+                    <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+                    </button>
+                    {% endif %}
+                    <!-- イイねの数 -->
+                    <span id="postlike_count">{{ postlike_count.0 }}</span>
+                    <span>いいね</span>
+                </div>
+
+                <div class="pickpost__watch">
+                    <i class="fas fa-eye"></i>
+                    <span>{{post.views}}</span>
+                    <span>閲覧</span>
+                </div>
+                <button class="pickpost__btn"><a href="{% url 'MyApp:post_detail' pk=post.pk %}" class="pickpost__a">詳細を見る</a></button>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+        <p>No posts yet.</p>
+    {% endfor %}
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+          /* ポストに対するイイね */
+          document.querySelectorAll('.ajax-like-for-post').forEach(button => {
+            button.addEventListener('click', e => {
+            e.preventDefault();
+            const url = '{% url "MyApp:post_like" %}';
+            fetch(url, {
+              method: 'POST',
+              body: `post_pk={{post.pk}}`,
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'X-CSRFToken': '{{ csrf_token }}',
+              },
+            }).then(response => {
+                return response.json();
+            }).then(response => {
+            // イイね数を書き換える
+            const counter = document.getElementById('postlike_count')
+            counter.textContent = response.postlike_count
+            const icon = document.getElementById('like-for-post-icon')
+            // 作成した場合はハートを塗る
+            if (response.method == 'create') {
+                icon.classList.remove('far')
+                icon.classList.add('fas')
+                icon.id = 'like-for-post-icon'
+            } else {
+                icon.classList.remove('fas')
+                icon.classList.add('far')
+                icon.id = 'like-for-post-icon'
+            }
+            }).catch(error => {
+                console.log(error);
+            });
+        });
+    });
+        </script>
+{% endblock main-content %}

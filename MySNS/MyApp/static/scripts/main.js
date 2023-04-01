@@ -15,9 +15,6 @@ function searchOnEnter(event) {
 }
 
 // ウィンドウサイズに応じて表示する文字数を制限する
-const windowWidth = window.innerWidth;
-let limit;
-
 if (window.location.href.indexOf("post/") > -1) {
   
   async function limitTextByBytes(text, maxBytes) {
@@ -65,9 +62,17 @@ if (window.location.href.indexOf("post/") > -1) {
           if (windowSize >= 1475){
             maxLength = 300;
           }else if (windowSize >= 1329){
-            maxLength = 150;
+            maxLength = 200;
+          }else if(windowSize >= 1280){
+            maxLength = 125;
           }else if(windowSize >= 960){
-            maxLength = 85;
+            maxLength = 100;
+          }else if(windowSize >=819){
+            maxLength = 600;
+          }else if(windowSize >= 600){
+            maxLength = 300;
+          }else{
+            maxLength = 200;
           }
           regularContent = await limitTextByBytes(reversedcachedDate[i].content,maxLength);
           content[i].innerText = regularContent;

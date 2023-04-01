@@ -23,15 +23,26 @@ if (window.location.href.indexOf("post/") > -1) {
   async function limitTextByBytes(text, maxBytes) {
     const encoder = new TextEncoder();
     const encoded = encoder.encode(text);
-    
+  
     if (encoded.byteLength > maxBytes) {
       const truncated = encoded.slice(0, maxBytes);
       const decoder = new TextDecoder();
-      return decoder.decode(truncated);
+      let lastByte = truncated[truncated.length - 1];
+      let charsToRemove = 0;
+      while ((lastByte & 0xC0) === 0x80) {
+        charsToRemove++;
+        lastByte = truncated[truncated.length - 1 - charsToRemove];
+      }
+      const finalBytes = truncated.slice(0, truncated.length - charsToRemove);
+      let ans = decoder.decode(finalBytes);
+      ans = ans.slice(0,ans.length-1);
+      ans += "..."
+      return ans;
     } else {
       return text;
     }
   }
+  
 
   async function onResize(){
     $.ajax({
@@ -48,14 +59,17 @@ if (window.location.href.indexOf("post/") > -1) {
         
         for (var i = 0; i < data.length; i++) {
           let regularContent = ""
-          console.log(reversedcachedDate[i].content);
-          console.log(content[i].innerText);
-          console.log("A");
+          let maxLength;
+          let windowSize = window.innerWidth;
 
-          // もともと表示してあるcontent[i]でできるのか、djangoから直接
-          // 貰ったデータでできるのかわからない
-          regularContent = await limitTextByBytes(content[i].innerHTML,maxLength);
-
+          if (windowSize >= 1475){
+            maxLength = 300;
+          }else if (windowSize >= 1329){
+            maxLength = 150;
+          }else if(windowSize >= 960){
+            maxLength = 85;
+          }
+          regularContent = await limitTextByBytes(reversedcachedDate[i].content,maxLength);
           content[i].innerText = regularContent;
         }
       }
@@ -65,86 +79,36 @@ if (window.location.href.indexOf("post/") > -1) {
   window.addEventListener('resize',onResize);
   onResize();
 }
-// // JavaScriptの記述例
-
-// // 文字列をバイト数で制限する
-// async function limitTextByBytes(text, maxBytes) {
-//   const encoder = new TextEncoder();
-//   const encoded = encoder.encode(text);
-  
-//   if (encoded.byteLength > maxBytes) {
-//     const truncated = encoded.slice(0, maxBytes);
-//     const decoder = new TextDecoder();
-//     return decoder.decode(truncated);
-//   } else {
-//     return text;
-//   }
-// }
-
-// // 表示するテキストを取得する
-// function getText() {
-//   return 'This is a long text to be displayed on a web page. '
-//       + 'It should be truncated when the window size is too small.';
-// }
-
-// // ウィンドウサイズが変更されたときに呼ばれる
-// async function onResize() {
-//   const container = document.getElementById('text-container');
-//   const text = getText();
-  
-//   // ウィンドウの幅に応じて、表示する文字列の長さを変更する
-//   let maxLength;
-//   if (window.innerWidth < 600) {
-//     maxLength = 20;
-//   } else if (window.innerWidth < 800) {
-//     maxLength = 30;
-//   } else {
-//     maxLength = 50;
-//   }
-  
-//   // 文字列をバイト数で制限する
-//   const limitedText = await limitTextByBytes(text, maxLength);
-  
-//   // 制限された文字列を表示する
-//   container.innerText = limitedText;
-// }
-
-// // ウィンドウサイズが変更されたときにonResize関数を呼ぶ
-// window.addEventListener('resize', onResize);
-
-// // 初期化時にonResize関数を呼ぶ
-// onResize();
-
 
 /* ポストに対するイイね */
-document.getElementById('ajax-like-for-post').addEventListener('click', e => {
-  e.preventDefault();
-  const url = '{% url "MyApp:post_like" %}';
-  fetch(url, {
-    method: 'POST',
-    body: `post_pk={{post.pk}}`,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-      'X-CSRFToken': '{{ csrf_token }}',
-    },
-  }).then(response => {
-      return response.json();
-  }).then(response => {
-  // イイね数を書き換える
-  const counter = document.getElementById('postlike_count')
-  counter.textContent = response.postlike_count
-  const icon = document.getElementById('like-for-post-icon')
-  // 作成した場合はハートを塗る
-  if (response.method == 'create') {
-      icon.classList.remove('far')
-      icon.classList.add('fas')
-      icon.id = 'like-for-post-icon'
-  } else {
-      icon.classList.remove('fas')
-      icon.classList.add('far')
-      icon.id = 'like-for-post-icon'
-  }
-  }).catch(error => {
-  console.log(error);
-  });
-});
+// document.getElementById('ajax-like-for-post').addEventListener('click', e => {
+//   e.preventDefault();
+//   const url = '{% url "MyApp:post_like" %}';
+//   fetch(url, {
+//     method: 'POST',
+//     body: `post_pk={{post.pk}}`,
+//     headers: {
+//       'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+//       'X-CSRFToken': '{{ csrf_token }}',
+//     },
+//   }).then(response => {
+//       return response.json();
+//   }).then(response => {
+//   // イイね数を書き換える
+//   const counter = document.getElementById('postlike_count')
+//   counter.textContent = response.postlike_count
+//   const icon = document.getElementById('like-for-post-icon')
+//   // 作成した場合はハートを塗る
+//   if (response.method == 'create') {
+//       icon.classList.remove('far')
+//       icon.classList.add('fas')
+//       icon.id = 'like-for-post-icon'
+//   } else {
+//       icon.classList.remove('fas')
+//       icon.classList.add('far')
+//       icon.id = 'like-for-post-icon'
+//   }
+//   }).catch(error => {
+//   console.log(error);
+//   });
+// });

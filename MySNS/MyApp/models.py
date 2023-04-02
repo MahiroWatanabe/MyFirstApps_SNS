@@ -84,3 +84,24 @@ class TalkRead(models.Model):
     talk = models.ForeignKey(Talk, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
  
+#-----------mypage-----------------
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=15, null=True, blank=True)
+    posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='profile_posts', blank=True, null=True)
+    icon = models.ImageField(null=True, blank=True, default="icons/default_icon.jpg", upload_to='icons/')
+    bio = models.CharField(max_length=200, null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
+    gender = models.CharField(max_length=10, null=True, blank=True)
+    university = models.CharField(max_length=50, null=True, blank=True)
+    sns_account = models.CharField(max_length=50, null=True, blank=True)
+    hobby = models.CharField(max_length=50, null=True, blank=True)
+    language = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username
+    
+    class Meta:
+        verbose_name = "プロフィール"
+        verbose_name_plural = "プロフィール一覧"

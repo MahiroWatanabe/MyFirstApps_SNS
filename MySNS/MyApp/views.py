@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 
 from django.db.models import Count
 
@@ -14,7 +14,7 @@ from django.http import JsonResponse
 
 from django.views.decorators.http import require_POST
 
-from .models import Post, PostLike, Talk, TalkLike
+from .models import Post, PostLike, Talk, TalkLike, Profile
 from .forms import CustomUserCreationForm
 
 class UserPostListView(ListView):
@@ -206,13 +206,43 @@ def talk_like(request):
 
 #----------------MyPage----------------------
 
-class MyPageView(LoginRequiredMixin, ListView):
-    model = Post
+class MyPageView(LoginRequiredMixin, DetailView):
+    model = Profile
     template_name = 'myPage.html'
-    context_object_name = 'myPosts'
+    context_object_name = 'profiles'
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = self.get_object()
+        context['posts'] = Post.objects.filter(author=profile.user)
+        return context
+
+class MyPageCreateView(LoginRequiredMixin, CreateView):
+    model = Profile
+    fields = ['name','icon','bio','age','gender','university','sns_account','hobby','language']
+    template_name = 'myPage_create.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('MyApp:myPage', kwargs={'pk': self.object.pk})
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    
+class MyPageUpdateView(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = ['name', 'icon', 'bio', 'age', 'gender', 'university', 'sns_account', 'hobby', 'language']
+    template_name = 'myPage_update.html'
+
+    def get_success_url(self):
+        return reverse_lazy('MyApp:myPage', kwargs={'pk': self.object.pk})
+
     def get_queryset(self):
-        return Post.objects.filter(author=self.request.user)
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
+
+#----------------------------------
 
 class SignupView(CreateView):
     form_class = UserCreationForm
@@ -226,6 +256,7 @@ class SignupView(CreateView):
         password = form.cleaned_data.get('password1')
         user = authenticate(username=username, password=password)
         login(self.request, user)
+
         return response
     
 

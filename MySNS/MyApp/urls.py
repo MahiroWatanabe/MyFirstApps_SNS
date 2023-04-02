@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import RedirectView
 from django.contrib.auth.views import LoginView, LogoutView
 
-from .views import PostJsonView, UserPostListView, TalkView, PostView, MyPageView, PostDetailView, TalkDetailView, SignupView, PostCreateView, TalkCreateView
+from .views import MyPageUpdateView, PostJsonView, UserPostListView, TalkView, PostView, MyPageView, PostDetailView, TalkDetailView, SignupView, PostCreateView, TalkCreateView, MyPageCreateView
 from .views import post_like, talk_like, login_signup
 
 app_name = 'MyApp'
@@ -23,7 +23,9 @@ urlpatterns = [
     path('post_like/', post_like, name='post_like'),
     path('post/json/', PostJsonView.as_view(), name='post_json'),
     
-    path('myPage/', MyPageView.as_view(), name="myPage"),
+    path('myPage/create', MyPageCreateView.as_view(), name="myPage_create"),
+    path('myPage/<int:pk>/update', MyPageUpdateView.as_view(), name="myPage_update"),
+    path('myPage/<int:pk>', MyPageView.as_view(), name="myPage"),
 
     path('signup/', SignupView.as_view(), name='signup'),
 

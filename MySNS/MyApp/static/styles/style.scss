@@ -677,16 +677,30 @@ main {
 
     &__container{
         @extend .flex3;
-        justify-content: space-around;
         background-color: $cBgGray;
         padding: 30px;
+        justify-content: space-around;
+        align-items: center;
+        @include mq(lg){
+            justify-content: space-around;
+        }
     }
 
     &__left{
-        width: 30%;
+        width: 80%;
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-bottom: 30px;
+        @include mq(lg){
+            width: 30%;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    &__profile{
+        margin-right: 50px;
     }
 
     &__name{
@@ -694,14 +708,19 @@ main {
     }
 
     &__imgcontainer{
-        width: 300px;
-        height: 300px;
+        width: 200px;
+        height: 200px;
         overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
         box-shadow: 0px 0px 7px 0px rgb(0 0 0);
         border-radius: 3%;
+        margin: 0 auto;
+        @include mq(lg){
+            width: 250px;
+            height: 250px;
+        }
     }
 
     &__img{
@@ -712,17 +731,48 @@ main {
     }
 
     &__setting{
-        margin: 20px auto;
+        display: flex;
+        margin: 15px auto;
         border: 0.1px solid black;
+        font-size: 12px;
+        @include mq(lg){
+            font-size: 15px;
+        }
+    }
+
+    &__add-profile{
+        font-size: 12px;
+        @include mq(lg){
+            font-size: 15px;
+        }
     }
 
     &__right{
-        width: 50%;
-        background-color: $cWhite;
+        display: flex;
+        width: 90%;
+        background-color: #f1f1f1;
         box-shadow: 0px 0px 10px 0px rgb(0, 0, 0,0.2);
         border-radius: 3%;
+        padding: 10px;
+        font-size: 12px;
+        @include mq(lg){
+            width: 50%;
+            font-size: 15px;
+        }
     }
 
+    &__profile-card {
+        background-color: #ffffff;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        padding: 24px;
+        width: 100%;
+      }
+
+    &__introduction{
+        margin-bottom: 5px
+    }
 }
 // mypage
 
@@ -730,4 +780,92 @@ main {
 
 .mypost{
     @extend .content-width;
+    &__sub-title{
+        margin-bottom: 30px !important;
+    }
+
+    &__container{
+        @extend .flex3;
+        justify-content: space-between;
+        align-items: center;
+        @include mq(lg){
+            align-items: stretch;
+        }
+    }
+
+    &__usercontainer{
+        display: flex;
+        width: 90%;
+        background-color: #fafafa;
+        box-shadow: 0px 0px 10px 0px rgb(0, 0, 0,0.2);
+        flex-direction: row;
+        margin-bottom: 25px;
+        @include mq(lg){
+            width: 30%;
+            flex-direction: column;
+        }
+    }
+
+    &__userimgcontainer{
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include mq(lg){
+            height: 200px;
+
+        }
+    }
+
+    &__img{
+        object-fit: cover;
+        object-position: center center;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__userbody-operation{
+        display: flex;
+        width: 110%;
+        height: 60%;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: 15px;
+        @include mq(lg){
+            width: 100%;
+        }
+    }
+
+    &__userbody{
+        padding: 15px;
+        font-size: 11px;
+        @include mq(lg){
+            font-size: 15px;
+        }
+    }
+
+    &__usertitle{
+        font-weight: 600;
+    }
+    
+    &__operation{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 12px;
+        @include mq(lg){
+            font-size: 14px;
+        }
+    }
+
+    &__btn{
+        border: none;
+        background-color: $cBgGray;
+    }
+
+    &__a{
+        color: black;
+        text-decoration: none;
+    }
 }

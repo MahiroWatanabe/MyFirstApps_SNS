@@ -89,12 +89,12 @@ img {
   }
 }
 
-.flex3, .mypage__container {
+.flex3, .mypage__container, .mypost__container {
   display: flex;
   flex-direction: column;
 }
 @media screen and (min-width: 960px) {
-  .flex3, .mypage__container {
+  .flex3, .mypage__container, .mypost__container {
     flex-direction: row;
     flex-wrap: wrap;
   }
@@ -974,28 +974,52 @@ main {
   margin-bottom: 50px !important;
 }
 .mypage__container {
-  justify-content: space-around;
   background-color: #eaebe6;
   padding: 30px;
+  justify-content: space-around;
+  align-items: center;
+}
+@media screen and (min-width: 960px) {
+  .mypage__container {
+    justify-content: space-around;
+  }
 }
 .mypage__left {
-  width: 30%;
+  width: 80%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+}
+@media screen and (min-width: 960px) {
+  .mypage__left {
+    width: 30%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.mypage__profile {
+  margin-right: 50px;
 }
 .mypage__name {
   margin-bottom: 20px;
 }
 .mypage__imgcontainer {
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0px 0px 7px 0px rgb(0, 0, 0);
   border-radius: 3%;
+  margin: 0 auto;
+}
+@media screen and (min-width: 960px) {
+  .mypage__imgcontainer {
+    width: 250px;
+    height: 250px;
+  }
 }
 .mypage__img {
   -o-object-fit: cover;
@@ -1006,12 +1030,138 @@ main {
   height: 100%;
 }
 .mypage__setting {
-  margin: 20px auto;
+  display: flex;
+  margin: 15px auto;
   border: 0.1px solid black;
+  font-size: 12px;
+}
+@media screen and (min-width: 960px) {
+  .mypage__setting {
+    font-size: 15px;
+  }
+}
+.mypage__add-profile {
+  font-size: 12px;
+}
+@media screen and (min-width: 960px) {
+  .mypage__add-profile {
+    font-size: 15px;
+  }
 }
 .mypage__right {
-  width: 50%;
-  background-color: white;
+  display: flex;
+  width: 90%;
+  background-color: #f1f1f1;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   border-radius: 3%;
+  padding: 10px;
+  font-size: 12px;
+}
+@media screen and (min-width: 960px) {
+  .mypage__right {
+    width: 50%;
+    font-size: 15px;
+  }
+}
+.mypage__profile-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  width: 100%;
+}
+.mypage__introduction {
+  margin-bottom: 5px;
+}
+
+.mypost__sub-title {
+  margin-bottom: 30px !important;
+}
+.mypost__container {
+  justify-content: space-between;
+  align-items: center;
+}
+@media screen and (min-width: 960px) {
+  .mypost__container {
+    align-items: stretch;
+  }
+}
+.mypost__usercontainer {
+  display: flex;
+  width: 90%;
+  background-color: #fafafa;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  flex-direction: row;
+  margin-bottom: 25px;
+}
+@media screen and (min-width: 960px) {
+  .mypost__usercontainer {
+    width: 30%;
+    flex-direction: column;
+  }
+}
+.mypost__userimgcontainer {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media screen and (min-width: 960px) {
+  .mypost__userimgcontainer {
+    height: 200px;
+  }
+}
+.mypost__img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center center;
+     object-position: center center;
+  width: 100%;
+  height: 100%;
+}
+.mypost__userbody-operation {
+  display: flex;
+  width: 110%;
+  height: 60%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 15px;
+}
+@media screen and (min-width: 960px) {
+  .mypost__userbody-operation {
+    width: 100%;
+  }
+}
+.mypost__userbody {
+  padding: 15px;
+  font-size: 11px;
+}
+@media screen and (min-width: 960px) {
+  .mypost__userbody {
+    font-size: 15px;
+  }
+}
+.mypost__usertitle {
+  font-weight: 600;
+}
+.mypost__operation {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 12px;
+}
+@media screen and (min-width: 960px) {
+  .mypost__operation {
+    font-size: 14px;
+  }
+}
+.mypost__btn {
+  border: none;
+  background-color: #eaebe6;
+}
+.mypost__a {
+  color: black;
+  text-decoration: none;
 }/*# sourceMappingURL=style.css.map */

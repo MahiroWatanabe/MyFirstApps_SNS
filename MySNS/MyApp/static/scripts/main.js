@@ -14,33 +14,30 @@ function searchOnEnter(event) {
   return true;
 }
 
-// ウィンドウサイズに応じて表示する文字数を制限する
-if (window.location.href.indexOf("post/") > -1) {
-  
-  async function limitTextByBytes(text, maxBytes) {
-    const encoder = new TextEncoder();
-    const encoded = encoder.encode(text);
-  
-    if (encoded.byteLength > maxBytes) {
-      const truncated = encoded.slice(0, maxBytes);
-      const decoder = new TextDecoder();
-      let lastByte = truncated[truncated.length - 1];
-      let charsToRemove = 0;
-      while ((lastByte & 0xC0) === 0x80) {
-        charsToRemove++;
-        lastByte = truncated[truncated.length - 1 - charsToRemove];
-      }
-      const finalBytes = truncated.slice(0, truncated.length - charsToRemove);
-      let ans = decoder.decode(finalBytes);
-      ans = ans.slice(0,ans.length-1);
-      ans += "..."
-      return ans;
-    } else {
-      return text;
-    }
-  }
-  
+async function limitTextByBytes(text, maxBytes) {
+  const encoder = new TextEncoder();
+  const encoded = encoder.encode(text);
 
+  if (encoded.byteLength > maxBytes) {
+    const truncated = encoded.slice(0, maxBytes);
+    const decoder = new TextDecoder();
+    let lastByte = truncated[truncated.length - 1];
+    let charsToRemove = 0;
+    while ((lastByte & 0xC0) === 0x80) {
+      charsToRemove++;
+      lastByte = truncated[truncated.length - 1 - charsToRemove];
+    }
+    const finalBytes = truncated.slice(0, truncated.length - charsToRemove);
+    let ans = decoder.decode(finalBytes);
+    ans = ans.slice(0,ans.length-1);
+    ans += "..."
+    return ans;
+  } else {
+    return text;
+  }
+}
+// post.html ウィンドウサイズに応じて表示する文字数を制限する
+if (window.location.href.indexOf("post/") > -1) {
   async function onResize(){
     $.ajax({
       url: '/post/json',
@@ -84,6 +81,53 @@ if (window.location.href.indexOf("post/") > -1) {
   window.addEventListener('resize',onResize);
   onResize();
 }
+
+// // myPage.html ウィンドウサイズに応じて表示する文字数を制限する
+// if (window.location.href.indexOf("post/") > -1) {
+//   async function onResize(){
+//     $.ajax({
+//       url: '/post/json',
+//       type: 'GET',
+//       dataType: "json",
+//       success:async function(data){
+//         const content = document.querySelectorAll(".pickpost__content");
+//         let cachedDate = data;
+//         let reversedcachedDate = [];
+//         for (let i = cachedDate.length -1; i >= 0; i--){
+//           reversedcachedDate.push(cachedDate[i]);
+//         }
+        
+//         for (var i = 0; i < data.length; i++) {
+//           let regularContent = ""
+//           let maxLength;
+//           let windowSize = window.innerWidth;
+
+//           if (windowSize >= 1475){
+//             maxLength = 300;
+//           }else if (windowSize >= 1329){
+//             maxLength = 200;
+//           }else if(windowSize >= 1280){
+//             maxLength = 125;
+//           }else if(windowSize >= 960){
+//             maxLength = 100;
+//           }else if(windowSize >=819){
+//             maxLength = 600;
+//           }else if(windowSize >= 600){
+//             maxLength = 300;
+//           }else{
+//             maxLength = 200;
+//           }
+//           regularContent = await limitTextByBytes(reversedcachedDate[i].content,maxLength);
+//           content[i].innerText = regularContent;
+//         }
+//       }
+//     });
+//   }
+  
+//   window.addEventListener('resize',onResize);
+//   onResize();
+// }
+
 
 /* ポストに対するイイね */
 // document.getElementById('ajax-like-for-post').addEventListener('click', e => {

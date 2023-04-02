@@ -12,21 +12,31 @@
         <div class="mypage__container">
             <!-- flex-direction:column -->
             <div class="mypage__left">
-                <h2 class="mypage__name">{{user}}のプロフィール</h2>
-                <div class="mypage__imgcontainer">
-                    <img src="{% static 'images/image-p1.jpg' %}" class="mypage__img" alt="">
+                <div class="mypage__profile">
+                    <h2 class="mypage__name">{{user}}のプロフィール</h2>
+                    <div class="mypage__imgcontainer">
+                        <img src="{% static 'images/image-p1.jpg' %}" class="mypage__img" alt="">
+                    </div>
+                    <button class="mypage__setting">プロフィールの編集</button>
                 </div>
-                <button class="mypage__setting">プロフィールの編集</button>
+                <div class="mypage__add-profile">
+                    <p>つぶやき数：2</p>
+                    <p>投稿数：2</p>
+                </div>
             </div>
             <div class="mypage__right">
-                <p>名前</p>
-                <p>自己紹介</p>
-                <p>年齢</p>
-                <p>性別</p>
-                <p>大学</p>
-                <p>SNSアカウント</p>
-                <p>趣味</p>
-                <p>利用できる言語</p>
+                <div class="mypage__profile-card">
+                    <p>名前:太郎</p>
+                    <p class="mypage__introduction">自己紹介</p>
+                    <p>私は現在大学三年生で、情報学科に所属しています。私はプログラミングに興味があり、これまでに多くのプログラミング言語を学んできました。私はWeb開発、アプリ開発、ゲーム開発などの分野に関心があり、さまざまなプロジェクトに挑戦してきました。私は新しい技術やフレームワークに興味があり、常に学習と成長に取り組んでいます。</p>
+                    <p>年齢:21</p>
+                    <p>性別:男</p>
+                    <p>大学:○○○大学</p>
+                    <p>SNSアカウント:jkasdfjlas</p>
+                    <p>趣味:プログラミング</p>
+                    <p>利用できる言語:Python</p>
+
+                </div>
             </div>
         </div>
     </div>
@@ -35,7 +45,7 @@
 <section class="mypost">
     <div class="mypost__header">
         <h2 class="main-title">User's Post</h2>
-        <p class="sub-title pickup__sub-title">{{user}}の投稿をみてみよう</p>
+        <p class="sub-title pickup__sub-title mypost__sub-title">{{user}}の投稿をみてみよう</p>
     </div>
 
     <div class="mypost__inner">
@@ -45,10 +55,37 @@
                     <div class="mypost__userimgcontainer">
                         <img src="{{ post.image.url }}" alt="" class="mypost__img">
                     </div>
-                    <div class="mypost__userbody">
-                        <p>{{ post.title }}</p>
-                        <p>{{ post.category }}</p>
-                        <p>{{ post.content }}</p>
+                    <div class="mypost__userbody-operation">
+                        <div class="mypost__userbody">
+                            <p class="mypost__usertitle">{{ post.title }}</p>
+                            <p>{{ post.category }}</p>
+                            <p>{{ post.content }}</p>
+                        </div>
+                        <div class="mypost__operation">
+                            <div class="mypost__good">
+                                {% if is_user_liked_for_post %}
+                                <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                                <!-- すでにイイねしている時はfasクラス -->
+                                <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+                                </button>
+                                {% else %}
+                                <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                                <!-- イイねしていないときはfarクラス -->
+                                <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+                                </button>
+                                {% endif %}
+                                <!-- イイねの数 -->
+                                <span id="postlike_count">{{ postlike_count }}</span>
+                                <span>いいね</span>
+                            </div>
+            
+                            <div class="mypost__watch">
+                                <i class="fas fa-eye"></i>
+                                <span>{{post.views}}</span>
+                                <span>閲覧</span>
+                            </div>
+                            <button class="mypost__btn"><a href="{% url 'MyApp:post_detail' pk=post.pk %}" class="mypost__a">詳細を見る</a></button>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

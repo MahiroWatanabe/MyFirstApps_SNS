@@ -1,3 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+  <link rel="stylesheet" href="{% static 'styles/create/talk_create.css' %}">
+{% endblock customcss %}
+
+{% block main-content %}
+<section class="talk-create">
+  <div class="talk-create__inner">
+    <div class="talk-create__container">
+      <div class="talk-create__header">
+
+      </div>
+
+      <div class="talk-create__new">
+        <div class="talk-create__newtitle">
+
+        </div>
+        <div class="talk-create__newtalk">
+
+        </div>
+      </div>
+
+      <div class="talk-create__past">
+        <div class="talk-create__pasttitle">
+
+        </div>
+        <div class="talk-create__pasttalk">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="container">
     <h1>Create Talk</h1>
     <form method="POST" enctype="multipart/form-data">
@@ -6,3 +42,4 @@
       <button type="submit" class="btn btn-primary">Create</button>
     </form>
   </div>
+  {% endblock main-content %}

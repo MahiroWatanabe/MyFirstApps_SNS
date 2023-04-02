@@ -20,14 +20,10 @@ main {
     z-index: -1;
 }
 
-// 要素を右寄せにする方法
-.parent {
-    text-align: right;
-    letter-spacing: -6px;
-  }
-  .child {
-      display: inline-block;
-  }
+a{
+    text-decoration: none;
+    color: $cBlack;
+}
 //header
 .header{
     position: fixed;

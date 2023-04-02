@@ -97,6 +97,12 @@ class PostJsonView(View):
         posts = Post.objects.all()
         data = list(posts.values())
         return JsonResponse(data, safe=False)
+    
+class MyPageJsonView(View):
+    def get(self, request, *args, **kwargs):
+        profiles = Profile.objects.all()
+        data = list(profiles.values())
+        return JsonResponse(data, safe=False)
 
 
 @require_POST

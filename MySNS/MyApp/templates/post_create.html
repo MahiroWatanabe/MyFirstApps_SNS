@@ -1,8 +1,135 @@
-<div class="container">
-    <h1>Create Post</h1>
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Create</button>
-    </form>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+<link rel="stylesheet" href="{% static 'styles/create/post_create.css' %}">
+{% endblock customcss %}
+
+{% block main-content %}
+<section class="post-create">
+  <div class="post-create__inner">
+    <div class="post-create__container">
+      <div class="post-create__header">
+        <h2 class="main-title">新しい投稿</h2>
+      </div>
+
+      <div class="post-create__new">
+        <div class="post-create__newtitle">
+          <h2>記事内容</h2>
+        </div>
+        <div class="post-create__newpost">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="post-create__newpost-title">
+              <p>タイトル</p>
+              <input class="post-create__newpost-name" type="text" name="title" maxlength="50" required="" id="id_title">
+            </div>
+            <p>内容</p>
+            <textarea class="post-create__newpost-textarea" name="content" cols="40" rows="10" maxlength="1000" required="" id="id_content"></textarea> 
+            <p>画像</p>
+            <input class="post-create__newpost-img" type="file" name="image" accept="image/*" id="id_image">
+            <p>カテゴリー</p>
+            <select class="post-create__newpost-select" name="category" id="id_category">
+              <option value="なし" selected="">なし</option>
+              <option value="AI">AI</option>
+              <option value="Python">Python</option>
+              <option value="java">java</option>
+            </select>
+            <br>
+            <div class="post-create__newpost-btnjustify">
+              <button type="submit" class="btn btn-primary post-create__newpost-btn">投稿</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="post-create__past">
+        <div class="post-create__pasttitle">
+          <h2>過去の投稿</h2>
+        </div>
+        <div class="post-create__pastpost">
+          <!-- 一つ目 -->
+          <div class="post-create__postcontainer">
+            <div class="post-create__imgcontainer">
+              <img class="post-create__img" src="{% static 'images/image-p1.jpg' %}" alt="">
+            </div>
+            <div class="post-create__postall">
+              <div class="post-create__postbody">
+                <p class="post-create__posttitle">初めてのコード</p>
+                <p class="post-create__postcategory">なし</p>
+                <p class="post-create__postcontent">ページのトップには、自分の名前と写真が掲載されていました。また、自己紹介文や趣味、スキルなどの情報が含まれていました。ページのデザインは、シンプルでクリーンなもので、背景色やフォントの種類、サイズなどを調整しました。</p>
+              </div>
+              <div class="mypost__operation">
+                <div class="mypost__good">
+                    {% if is_user_liked_for_post %}
+                    <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                    <!-- すでにイイねしている時はfasクラス -->
+                    <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+                    </button>
+                    {% else %}
+                    <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                    <!-- イイねしていないときはfarクラス -->
+                    <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+                    </button>
+                    {% endif %}
+                    <!-- イイねの数 -->
+                    <span id="postlike_count">{{ postlike_count }}</span>
+                    <span>いいね</span>
+                </div>
+  
+                <div class="mypost__watch">
+                    <i class="fas fa-eye"></i>
+                    <span>{{post.views}}</span>
+                    <span>閲覧</span>
+                </div>
+                <button class="mypost__btn"><a href="" class="mypost__a">詳細を見る</a></button>
+              </div>
+            </div>
+          </div>
+          <!-- 一つ目 -->
+
+          <!-- 二つ目 -->
+          <div class="post-create__postcontainer">
+            <div class="post-create__imgcontainer">
+              <img src="{% static 'images/image-p1.jpg' %}" alt="">
+            </div>
+            <div class="post-create__postall">
+              <div class="post-create__postbody">
+                <p class="post-create__posttitle">初めてのコード</p>
+                <p class="post-create__postcategory">なし</p>
+                <p class="post-create__postcontent">ページのトップには、自分の名前と写真が掲載されていました。また、自己紹介文や趣味、スキルなどの情報が含まれていました。ページのデザインは、シンプルでクリーンなもので、背景色やフォントの種類、サイズなどを調整しました。</p>
+              </div>
+              <div class="mypost__operation">
+                <div class="mypost__good">
+                    {% if is_user_liked_for_post %}
+                    <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                    <!-- すでにイイねしている時はfasクラス -->
+                    <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+                    </button>
+                    {% else %}
+                    <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                    <!-- イイねしていないときはfarクラス -->
+                    <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+                    </button>
+                    {% endif %}
+                    <!-- イイねの数 -->
+                    <span id="postlike_count">{{ postlike_count }}</span>
+                    <span>いいね</span>
+                </div>
+  
+                <div class="mypost__watch">
+                    <i class="fas fa-eye"></i>
+                    <span>{{post.views}}</span>
+                    <span>閲覧</span>
+                </div>
+                <button class="mypost__btn"><a href="" class="mypost__a">詳細を見る</a></button>
+              </div>
+            </div>
+          </div>
+          <!-- 二つ目 -->
+        </div>
+      </div>
+    </div>
   </div>
+</section>
+{% endblock main-content %}

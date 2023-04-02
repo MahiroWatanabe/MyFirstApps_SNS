@@ -1,6 +1,59 @@
-{% for post in myPosts %}
-<p>{{ post.title }}</p>
-<p>{{ post.content }}</p>
-<p>{{ post.image }}</p>
-<p>{{ post.category }}</p>
-{% endfor %}
+{% extends 'base.html' %}
+{% load static %}
+{% block main-content %}
+<section class="mypage">
+    <div class="mypage__header">
+        <h2 class="main-title">Profile</h2>
+        <p class="sub-title pickup__sub-title">プロフィールをみてみよう</p>
+    </div>
+
+    <div class="mypage__inner">
+        <!-- @ .flex3を継承する -->
+        <div class="mypage__container">
+            <!-- flex-direction:column -->
+            <div class="mypage__left">
+                <h2 class="mypage__name">{{user}}のプロフィール</h2>
+                <div class="mypage__imgcontainer">
+                    <img src="{% static 'images/image-p1.jpg' %}" class="mypage__img" alt="">
+                </div>
+                <button class="mypage__setting">プロフィールの編集</button>
+            </div>
+            <div class="mypage__right">
+                <p>名前：{{ profiles.user }}</p>
+                <p>自己紹介：{{ profiles.bio }}</p>
+                <p>年齢：{{ profiles.age }}</p>
+                <p>性別：{{ profiles.gender }}</p>
+                <p>大学：{{ profiles.university }}</p>
+                <p>SNSアカウント：{{ profiles.sns_account }}</p>
+                <p>趣味：{{ profiles.hobby }}</p>
+                <p>利用できる言語：{{ profiles.language }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mypost">
+    <div class="mypost__header">
+        <h2 class="main-title">User's Post</h2>
+        <p class="sub-title pickup__sub-title">{{user}}の投稿をみてみよう</p>
+    </div>
+
+    <div class="mypost__inner">
+        <div class="mypost__container">
+            {% for post in posts %}
+                <div class="mypost__usercontainer">
+                    <div class="mypost__userimgcontainer">
+                        <img src="{{ post.image.url }}" alt="" class="mypost__img">
+                    </div>
+                    <div class="mypost__userbody">
+                        <p>{{ post.title }}</p>
+                        <p>{{ post.category }}</p>
+                        <p>{{ post.content }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

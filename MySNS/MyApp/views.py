@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 
-from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, TemplateView
 
 from django.db.models import Count
 
@@ -15,7 +15,8 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
 from .models import Post, PostLike, Talk, TalkLike, Profile
-from .forms import CustomUserCreationForm
+
+from .forms import CustomUserCreationForm, TalkForm, PostForm
 
 class UserPostListView(ListView):
     model = Post
@@ -79,16 +80,36 @@ class PostDetailView(DetailView):
 
         return context
 
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['title', 'content', 'image', 'category']
-    template_name = 'post_create.html'
-    success_url = reverse_lazy('MyApp:post')
+# class PostCreateView(LoginRequiredMixin, CreateView):
+#     model = Post
+#     fields = ['title', 'content', 'image', 'category']
+#     template_name = 'post_create.html'
+#     success_url = reverse_lazy('MyApp:post')
     
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+#     def form_valid(self, form):
+#         form.instance.author = self.request.user
+#         return super().form_valid(form)
 
+class PostCreateView(LoginRequiredMixin, TemplateView):
+    template_name = 'post_create.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = Post.objects.filter(author=self.request.user)
+        context['form'] = PostForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('MyApp:post')
+        else:
+            context = self.get_context_data(**kwargs)
+            context['form'] = form
+            return self.render_to_response(context)
 
 from django.views import View
 
@@ -98,12 +119,6 @@ class PostJsonView(View):
         data = list(posts.values())
         return JsonResponse(data, safe=False)
     
-class MyPageJsonView(View):
-    def get(self, request, *args, **kwargs):
-        profiles = Profile.objects.all()
-        data = list(profiles.values())
-        return JsonResponse(data, safe=False)
-
 
 @require_POST
 @login_required
@@ -179,15 +194,27 @@ class TalkDetailView(DetailView):
 
         return context
 
-class TalkCreateView(LoginRequiredMixin, CreateView):
-    model = Talk
-    fields = ['content']
+class TalkCreateView(LoginRequiredMixin, TemplateView):
     template_name = 'talk_create.html'
-    success_url = reverse_lazy('MyApp:talk')
-    
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['talks'] = Talk.objects.filter(author=self.request.user)
+        context['form'] = TalkForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = TalkForm(request.POST)
+        if form.is_valid():
+            talk = form.save(commit=False)
+            talk.author = request.user
+            talk.save()
+            return redirect('MyApp:talk')
+        else:
+            context = self.get_context_data(**kwargs)
+            context['form'] = form
+            return self.render_to_response(context)
+
 
 @require_POST
 @login_required
@@ -247,6 +274,12 @@ class MyPageUpdateView(LoginRequiredMixin, UpdateView):
     def get_queryset(self):
         queryset = super().get_queryset()
         return queryset.filter(user=self.request.user)
+
+class MyPageJsonView(View):
+    def get(self, request, *args, **kwargs):
+        profiles = Profile.objects.all()
+        data = list(profiles.values())
+        return JsonResponse(data, safe=False)
 
 #----------------------------------
 

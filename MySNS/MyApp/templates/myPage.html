@@ -17,7 +17,7 @@
                     <div class="mypage__imgcontainer">
                         <img src="{% static 'images/image-p1.jpg' %}" class="mypage__img" alt="">
                     </div>
-                    <button class="mypage__setting">プロフィールの編集</button>
+                    <button class="mypage__setting"><a href="{% url 'MyApp:myPage_update' pk=profiles.pk %}">プロフィールの編集</a></button>
                 </div>
                 <div class="mypage__add-profile">
                     <p>つぶやき数：2</p>
@@ -26,15 +26,15 @@
             </div>
             <div class="mypage__right">
                 <div class="mypage__profile-card">
-                    <p>名前:太郎</p>
+                    <p>名前：{{ profiles.user }}</p>
                     <p class="mypage__introduction">自己紹介</p>
-                    <p>私は現在大学三年生で、情報学科に所属しています。私はプログラミングに興味があり、これまでに多くのプログラミング言語を学んできました。私はWeb開発、アプリ開発、ゲーム開発などの分野に関心があり、さまざまなプロジェクトに挑戦してきました。私は新しい技術やフレームワークに興味があり、常に学習と成長に取り組んでいます。</p>
-                    <p>年齢:21</p>
-                    <p>性別:男</p>
-                    <p>大学:○○○大学</p>
-                    <p>SNSアカウント:jkasdfjlas</p>
-                    <p>趣味:プログラミング</p>
-                    <p>利用できる言語:Python</p>
+                    <p>{{ profiles.bio }}</p>
+                    <p>年齢：{{ profiles.age }}</p>
+                    <p>性別：{{ profiles.gender }}</p>
+                    <p>大学：{{ profiles.university }}</p>
+                    <p>SNSアカウント：{{ profiles.sns_account }}</p>
+                    <p>趣味：{{ profiles.hobby }}</p>
+                    <p>利用できる言語：{{ profiles.language }}</p>
 
                 </div>
             </div>
@@ -50,7 +50,7 @@
 
     <div class="mypost__inner">
         <div class="mypost__container">
-            {% for post in myPosts %}
+            {% for post in posts %}
                 <div class="mypost__usercontainer">
                     <div class="mypost__userimgcontainer">
                         <img src="{{ post.image.url }}" alt="" class="mypost__img">
@@ -59,7 +59,7 @@
                         <div class="mypost__userbody">
                             <p class="mypost__usertitle">{{ post.title }}</p>
                             <p>{{ post.category }}</p>
-                            <p>{{ post.content }}</p>
+                            <p class="mypost__usercontent">{{ post.content }}</p>
                         </div>
                         <div class="mypost__operation">
                             <div class="mypost__good">
@@ -93,4 +93,76 @@
         </div>
     </div>
 </section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script>
+    async function limitTextByBytes(text, maxBytes) {
+        const encoder = new TextEncoder();
+        const encoded = encoder.encode(text);
+      
+        if (encoded.byteLength > maxBytes) {
+          const truncated = encoded.slice(0, maxBytes);
+          const decoder = new TextDecoder();
+          let lastByte = truncated[truncated.length - 1];
+          let charsToRemove = 0;
+          while ((lastByte & 0xC0) === 0x80) {
+            charsToRemove++;
+            lastByte = truncated[truncated.length - 1 - charsToRemove];
+          }
+          const finalBytes = truncated.slice(0, truncated.length - charsToRemove);
+          let ans = decoder.decode(finalBytes);
+          ans = ans.slice(0,ans.length-1);
+          ans += "..."
+          return ans;
+        } else {
+          return text;
+        }
+      }
+      // post.html ウィンドウサイズに応じて表示する文字数を制限する
+      if (window.location.href.indexOf("{% url 'MyApp:myPage' pk=profiles.pk %}") > -1) {
+        async function onResize(){
+          $.ajax({
+            url: '/myPage/json',
+            type: 'GET',
+            dataType: "json",
+            success:async function(data){
+              const content = document.querySelectorAll(".mypost__usercontent");
+              let cachedDate = data;
+              console.log(cachedDate);
+              let reversedcachedDate = [];
+              for (let i = cachedDate.length -1; i >= 0; i--){
+                reversedcachedDate.push(cachedDate[i]);
+              }
+              
+              for (var i = 0; i < data.length; i++) {
+                let regularContent = ""
+                let maxLength;
+                let windowSize = window.innerWidth;
+      
+                if (windowSize >= 1475){
+                  maxLength = 300;
+                }else if (windowSize >= 1329){
+                  maxLength = 200;
+                }else if(windowSize >= 1280){
+                  maxLength = 125;
+                }else if(windowSize >= 960){
+                  maxLength = 100;
+                }else if(windowSize >=819){
+                  maxLength = 600;
+                }else if(windowSize >= 600){
+                  maxLength = 300;
+                }else{
+                  maxLength = 200;
+                }
+                regularContent = await limitTextByBytes(reversedcachedDate[i].content,maxLength);
+                content[i].innerText = regularContent;
+              }
+            }
+          });
+        }
+        
+        window.addEventListener('resize',onResize);
+        onResize();
+      }
+</script> -->
 {% endblock main-content %}

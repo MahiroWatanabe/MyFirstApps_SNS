@@ -51,7 +51,7 @@
                     <li class="header__li"><a href="{% url 'MyApp:talk' %}">みんなのつぶやき</a></li>
                     <li class="header__li"><a href="{% url 'MyApp:post' %}">投稿一覧</a></li>
                     <li class="header__li"><a href="#">オープンチャット</a></li>
-                    <li class="header__li"><a class="btn filled a-justify" href="{% url 'MyApp:myPage' %}">MyPage</a></li>
+                    <li class="header__li"><a class="btn filled a-justify" href="{% url 'MyApp:myPage' pk=user.pk %}">MyPage</a></li>
                   </ul>
                 </nav>
                 <button class="mobile-menu__btn">
@@ -111,7 +111,7 @@
                 </a>
             </li>
             <li class="mobile-menu__item">
-              <a class="mobile-menu__link" href="{% url 'MyApp:myPage' %}">
+              <a class="mobile-menu__link" href="{% url 'MyApp:myPage' pk=user.pk %}">
                   <span class="sub-title">MyPage</span>
               </a>
           </li>

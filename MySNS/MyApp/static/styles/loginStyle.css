@@ -157,6 +157,13 @@ img {
   color: #535353;
 }
 
+.input-justify {
+  font-size: 14px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
 .swiper {
   overflow: visible !important;
 }

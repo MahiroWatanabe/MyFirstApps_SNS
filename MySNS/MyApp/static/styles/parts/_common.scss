@@ -151,3 +151,10 @@ img {
   @extend .mb-sm;
   color: $cSubTitle;
 }
+
+.input-justify{
+  font-size: 14px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}

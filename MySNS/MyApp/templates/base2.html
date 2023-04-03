@@ -9,8 +9,8 @@
             </form>
             <ul class="picktext__ul">
                 <!-- この部分に人気順、最近のURL記述 -->
-                <li class="picktext__li"><a href="">人気順</a></li>
-                <li class="picktext__li"><a href="">最近</a></li>
+                {% block popularity-sort %}
+                {% endblock popularity-sort %}
             </ul>
         </div>
         <div class="picktext__inner">

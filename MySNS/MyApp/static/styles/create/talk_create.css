@@ -163,6 +163,14 @@ img {
   margin-bottom: 15px;
 }
 
+.input-justify2 {
+  font-size: 14px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  padding: 6px;
+}
+
 .talk-create {
   margin-top: 100px;
   margin-bottom: 50px !important;
@@ -243,7 +251,7 @@ img {
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  background-color: white;
+  background-color: #ffffff;
   padding: 15px;
   margin-bottom: 25px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);

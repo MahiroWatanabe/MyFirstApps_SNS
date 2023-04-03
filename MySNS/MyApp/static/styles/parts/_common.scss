@@ -1,7 +1,7 @@
 @use "../globals" as *;
 
 body {
-  font-family: 'Kameron', 'Noto Sans JP', sans-serif;
+  font-family: "Kameron", "Noto Sans JP", sans-serif;
 }
 
 img {
@@ -16,7 +16,6 @@ img {
 .mb-md {
   margin-bottom: 50px !important;
 }
-
 
 .mb-lg {
   margin-bottom: 80px !important;
@@ -33,7 +32,6 @@ img {
 .mt-md {
   margin-top: 50px !important;
 }
-
 
 .mt-lg {
   margin-top: 80px !important;
@@ -99,7 +97,7 @@ img {
   }
 }
 
-.flex2{
+.flex2 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -152,9 +150,17 @@ img {
   color: $cSubTitle;
 }
 
-.input-justify{
+.input-justify {
   font-size: 14px;
   border: 2px solid #ccc;
   border-radius: 5px;
   margin-bottom: 15px;
+}
+
+.input-justify2 {
+  font-size: 14px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  padding: 6px;
 }

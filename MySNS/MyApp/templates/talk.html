@@ -14,7 +14,7 @@
                 <p class="picktalk__author"> ID: {{ talk.author_id }}</p>
             </div>
         </div>
-        <p class="picktalk__data">{{ talk.date_posted|date:"F j, Y" }}</p>      
+        <p class="picktalk__data">{{ talk.date_posted|date:"m/d/Y" }}</p>      
         <p class="picktalk__p">{{ talk.content }}</p>
     </div>
     {% empty %}

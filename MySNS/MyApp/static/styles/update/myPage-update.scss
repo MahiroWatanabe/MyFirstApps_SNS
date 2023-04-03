@@ -1,0 +1,60 @@
+@use "../globals" as *;
+@use "../parts/common" as *;
+
+.update {
+  margin-top: 100px;
+  margin-bottom: 50px !important;
+  @extend .content-width;
+
+  &__inner {
+    display: flex;
+    justify-content: center;
+    background-color: $cBgGray;
+    padding: 30px 50px;
+  }
+
+  &__container {
+    width: 80%;
+  }
+
+  &__form {
+    background-color: $cWhite;
+    border-radius: 3%;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+
+    & form {
+      & div {
+        & p {
+          margin-bottom: 5px;
+        }
+        & input {
+          @extend .input-justify2;
+        }
+      }
+    }
+  }
+
+  &__btn{
+    display: flex;
+    justify-content: center;
+    & button {
+      background-color: #1ce447;
+      color: white;
+      
+      border-radius: 10px;
+      border: 2px solid #ccc;
+
+      &:hover {
+        background-color: rgb(81, 235, 125);
+        color: rgb(0, 0, 0);
+      }
+      
+      &:active {
+        background-color: rgb(1, 112, 18);
+      }
+      
+      margin: 10px 20px;
+  }
+  }
+}

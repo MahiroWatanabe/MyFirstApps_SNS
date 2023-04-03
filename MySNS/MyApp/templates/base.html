@@ -33,25 +33,26 @@
                     <span class="logo__Code">Code</span>
                   </a>
                 </div>
-
-                {% comment %} {% if user.is_authenticated %}
-                  <a href='{% url "logout" %}' class='logout nav-link'>{{user}} Logout</a>
-                {% else %}
-                <div class="header__login">
-                  <li class='nav-item'>
-                      <a href='{% url "login" %}' class='login nav-link'>Login</a>
-                  </li>
-                  <li class="nav-item">
-                      <a href='{% url "accounts:signup" %}' class='signup nav-link'> Sign up </a>
-                  </li>
-                </div> {% endcomment %}
-
                 <nav class="header__nav">
                   <ul class="header__ul">
+                    {% if user.is_authenticated %}
+                      <li class="header__li"><a href="{% url 'MyApp:logout' %}" class='logout nav-link'>{{user}}-Logout</a></li>
+                    {% else %}
+                      <li class='header__li'>
+                          <a href="{% url 'MyApp:login' %}" class='login nav-link'>Login</a>
+                      </li>
+                      <li class="header__li">
+                          <a href="{% url 'MyApp:login' %}" class='signup nav-link'> Sign up </a>
+                      </li>
+                    {% endif %}
                     <li class="header__li"><a href="{% url 'MyApp:talk' %}">みんなのつぶやき</a></li>
                     <li class="header__li"><a href="{% url 'MyApp:post' %}">投稿一覧</a></li>
                     <li class="header__li"><a href="#">オープンチャット</a></li>
-                    <li class="header__li"><a class="btn filled a-justify" href="{% url 'MyApp:myPage' pk=user.pk %}">MyPage</a></li>
+                    {% if user.is_authenticated %}
+                      <li class="header__li"><a class="btn filled a-justify" href="{% url 'MyApp:myPage' pk=user.pk %}">MyPage</a></li>
+                    {% else %}
+
+                    {% endif %}
                   </ul>
                 </nav>
                 <button class="mobile-menu__btn">
@@ -95,26 +96,28 @@
           <span class="logo__Code">Code</span>
         </div>
         <ul class="mobile-menu__main">
-            <li class="mobile-menu__item">
-                <a class="mobile-menu__link" href="{% url 'MyApp:talk' %}">
-                    <span class="sub-title">みんなのつぶやき</span>
-                </a>
-            </li>
-            <li class="mobile-menu__item">
-                <a class="mobile-menu__link" href="{% url 'MyApp:post' %}">
-                    <span class="sub-title">投稿一覧</span>
-                </a>
-            </li>
-            <li class="mobile-menu__item">
-                <a class="mobile-menu__link" href="#">
-                    <span class="sub-title">オープンチャット</span>
-                </a>
-            </li>
-            <li class="mobile-menu__item">
-              <a class="mobile-menu__link" href="{% url 'MyApp:myPage' pk=user.pk %}">
-                  <span class="sub-title">MyPage</span>
+          <li class="mobile-menu__item">
+              <a class="mobile-menu__link" href="{% url 'MyApp:talk' %}">
+                  <span class="sub-title">みんなのつぶやき</span>
               </a>
           </li>
+          <li class="mobile-menu__item">
+              <a class="mobile-menu__link" href="{% url 'MyApp:post' %}">
+                  <span class="sub-title">投稿一覧</span>
+              </a>
+          </li>
+          <li class="mobile-menu__item">
+              <a class="mobile-menu__link" href="#">
+                  <span class="sub-title">オープンチャット</span>
+              </a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="mobile-menu__item">
+            <a class="mobile-menu__link" href="{% url 'MyApp:myPage' pk=user.pk %}">
+                <span class="sub-title">MyPage</span>
+            </a>
+          </li>
+          {% endif %}
         </ul>
       </nav>
     </div>

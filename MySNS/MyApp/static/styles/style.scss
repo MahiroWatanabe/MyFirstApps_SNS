@@ -664,12 +664,6 @@ a{
     margin-top: 150px;
     margin-bottom: 50px !important;
     @extend .content-width;
-    &__header{
-    }
-
-    &__inner{
-
-    }
 
     &__container{
         @extend .flex3;

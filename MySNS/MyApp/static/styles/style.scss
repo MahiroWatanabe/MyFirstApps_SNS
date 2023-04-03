@@ -508,6 +508,17 @@ a{
             font-size: 14px;
         }
     }
+
+    &__operation{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 12px;
+        margin-top: 10px;
+        @include mq(lg){
+            font-size: 14px;
+        }
+    }
 }
 // picktalk
 

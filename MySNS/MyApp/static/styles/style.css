@@ -830,6 +830,18 @@ a {
     font-size: 14px;
   }
 }
+.picktalk__operation {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 12px;
+  margin-top: 10px;
+}
+@media screen and (min-width: 960px) {
+  .picktalk__operation {
+    font-size: 14px;
+  }
+}
 
 .pickpost__container {
   position: relative;

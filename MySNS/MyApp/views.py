@@ -179,6 +179,7 @@ class TalkView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         talklike_counts = []
         is_user_liked_for_talks = []
         for talk in context['talks']:
@@ -204,6 +205,11 @@ class TalkDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        talk = self.get_object()  # ポストを取得
+        talk.views += 1  # viewsを1増やす
+        talk.save()  # データベースに保存
+
         talklike_count = self.object.talklike_set.count()
         # ポストに対するイイね数
         context['talklike_count'] = talklike_count
@@ -222,6 +228,22 @@ class TalkCreateView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['talks'] = Talk.objects.filter(author=self.request.user)
         context['form'] = TalkForm()
+
+        talklike_counts = []
+        is_user_liked_for_talks = []
+        for talk in context['talks']:
+            talklike_count = talk.talklike_set.count()
+            talklike_counts.append(talklike_count)
+
+            if talk.talklike_set.filter(user=self.request.user).exists():
+                is_user_liked_for_talk = True
+            else:
+                is_user_liked_for_talk = False
+            is_user_liked_for_talks.append(is_user_liked_for_talk)
+
+        context['talklike_counts'] = talklike_counts
+        context['is_user_liked_for_talks'] = is_user_liked_for_talks
+
         return context
 
     def post(self, request, *args, **kwargs):

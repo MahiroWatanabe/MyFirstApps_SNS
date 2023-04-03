@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
+
+{% block javaScript %}
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+{% endblock javaScript %}
 
 {% block customcss %}
   <link rel="stylesheet" href="{% static 'styles/create/talk_create.css' %}">
@@ -34,7 +42,7 @@
           <h2>過去のつぶやき</h2>
         </div>
         <div class="talk-create__pasttalk">
-          {% for talk in talks %}
+          {% for talk, is_user_liked_for_talk in talks|zip_lists:is_user_liked_for_talks %}
           <div class="talk-create__usercontainer">
             <div class="talk-create__userbody">
               <p class="talk-create__userdate">{{ talk.date_posted|date:"m/d/Y" }}</p>
@@ -42,25 +50,25 @@
             </div>
             <div class="talk-create__operation">
               <div class="mypost__good">
-                {% if is_user_liked_for_post %}
-                <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                {% if is_user_liked_for_talk %}
+                <button type="button" id="ajax-like-for-talk-{{ talk.pk }}" style="border:none;background:none">
                 <!-- すでにイイねしている時はfasクラス -->
-                <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+                <i class="fas fa-heart text-danger" id="like-for-talk-icon-{{ talk.pk }}"></i>
                 </button>
                 {% else %}
-                <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                <button type="button" id="ajax-like-for-talk-{{ talk.pk }}" style="border:none;background:none">
                 <!-- イイねしていないときはfarクラス -->
-                <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+                <i class="far fa-heart text-danger" id="like-for-talk-icon-{{ talk.pk }}"></i>
                 </button>
                 {% endif %}
                 <!-- イイねの数 -->
-                <span id="postlike_count">{{ postlike_count }}</span>
+                <span id="talklike_count-{{ talk.pk }}">{{ talk.talklike_set.count }}</span>
                 <span>いいね</span>
               </div>
 
               <div class="mypost__watch">
                   <i class="fas fa-eye"></i>
-                  <span>{{post.views}}</span>
+                  <span>{{talk.views}}</span>
                   <span>閲覧</span>
               </div>
             </div>
@@ -71,4 +79,44 @@
     </div>
   </div>
 </section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    /* ポストに対するイイね */
+    document.querySelectorAll('[id^="ajax-like-for-talk"]').forEach(button => {
+    button.addEventListener('click', e => {
+        e.preventDefault();
+        const talkPk = button.id.split('-')[4];
+        console.log(talkPk)
+        const url = '{% url "MyApp:talk_like" %}';
+        fetch(url, {
+            method: 'POST',
+            body: `talk_pk=${talkPk}`,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+        }).then(response => {
+            return response.json();
+        }).then(response => {
+            // イイね数を書き換える
+            const counter = document.getElementById(`talklike_count-${talkPk}`)
+            console.log(counter)
+            counter.textContent = response.talklike_count
+            const icon = document.getElementById(`like-for-talk-icon-${talkPk}`)
+            // 作成した場合はハートを塗る
+            if (response.method == 'create') {
+                icon.classList.remove('far')
+                icon.classList.add('fas')
+            } else {
+                icon.classList.remove('fas')
+                icon.classList.add('far')
+            }
+        }).catch(error => {
+            console.log(error);
+        });
+    });
+});
+</script>
+
 {% endblock main-content %}

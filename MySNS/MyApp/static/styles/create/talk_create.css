@@ -1,1 +1,276 @@
-/*# sourceMappingURL=talk_create.css.map */
+body {
+  font-family: "Kameron", "Noto Sans JP", sans-serif;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+.mb-sm, .sub-title {
+  margin-bottom: 16px !important;
+}
+
+.mb-md {
+  margin-bottom: 50px !important;
+}
+
+.mb-lg {
+  margin-bottom: 80px !important;
+}
+@media screen and (min-width: 960px) {
+  .mb-lg {
+    margin-bottom: 150px !important;
+  }
+}
+
+.mt-sm {
+  margin-top: 16px !important;
+}
+
+.mt-md {
+  margin-top: 50px !important;
+}
+
+.mt-lg {
+  margin-top: 80px !important;
+}
+@media screen and (min-width: 960px) {
+  .mt-lg {
+    margin-top: 150px !important;
+  }
+}
+
+.pb-sm {
+  padding-bottom: 16px !important;
+}
+
+.pb-lg {
+  padding-bottom: 80px !important;
+}
+@media screen and (min-width: 960px) {
+  .pb-lg {
+    padding-bottom: 150px !important;
+  }
+}
+
+.content-width, .talk-create {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1070px;
+}
+
+.content-width2 {
+  width: 50%;
+  margin: 0 auto;
+  max-width: 1070px;
+}
+
+.content-width3 {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.content-height {
+  height: 90%;
+  margin: 0 auto;
+  max-height: 1070px;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 600px) {
+  .flex {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.flex3, .talk-create__pasttalk {
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 960px) {
+  .flex3, .talk-create__pasttalk {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.flex2 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.purple {
+  color: #1f3790;
+}
+
+.font-sm, .sub-title {
+  font-size: 14px;
+}
+@media screen and (min-width: 960px) {
+  .font-sm, .sub-title {
+    font-size: 16px;
+  }
+}
+
+.font-md {
+  font-size: 17px;
+}
+@media screen and (min-width: 960px) {
+  .font-md {
+    font-size: 19px;
+  }
+}
+
+.font-lr {
+  font-size: 17px;
+}
+@media screen and (min-width: 960px) {
+  .font-lr {
+    font-size: 23px;
+  }
+}
+
+.font-lg, .main-title {
+  font-size: 25px;
+}
+@media screen and (min-width: 960px) {
+  .font-lg, .main-title {
+    font-size: 36px;
+  }
+}
+
+.main-title {
+  font-weight: 600;
+  margin-bottom: 0;
+  display: block;
+}
+
+.sub-title {
+  color: #535353;
+}
+
+.input-justify, .talk-create__newtalk-name, .talk-create__newtalk-textarea, .talk-create__newtalk-img, .talk-create__newtalk-select {
+  font-size: 14px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.talk-create {
+  margin-top: 100px;
+  margin-bottom: 50px !important;
+}
+.talk-create__container {
+  background-color: #eaebe6;
+  padding: 30px 50px;
+  padding-top: 50px;
+}
+.talk-create__header {
+  margin-bottom: 50px;
+}
+.talk-create__new {
+  margin-bottom: 100px;
+}
+.talk-create__newtitle {
+  margin-bottom: 10px;
+}
+.talk-create__newtalk {
+  background-color: white;
+  padding: 25px 50px;
+  border-radius: 3%;
+  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.2);
+}
+.talk-create__newtalk p {
+  margin-bottom: 5px;
+}
+.talk-create__newtalk-name {
+  padding: 10px;
+}
+.talk-create__newtalk-textarea {
+  width: 100%;
+  padding: 10px;
+}
+.talk-create__newtalk-img {
+  padding: 10px;
+}
+.talk-create__newtalk-select {
+  padding: 10px;
+  margin-bottom: 25px;
+}
+.talk-create__newtalk-btnjustify {
+  display: flex;
+  justify-content: center;
+}
+.talk-create__newtalk-btnjustify button {
+  background-color: #2196F3;
+  color: white;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  margin: 10px 20px;
+}
+.talk-create__newtalk-btnjustify button:hover {
+  background-color: rgb(0, 191, 255);
+  color: rgb(0, 0, 0);
+}
+.talk-create__newtalk-btnjustify button:active {
+  background-color: navy;
+}
+.talk-create__newtalk-btn {
+  margin: 0;
+}
+.talk-create__pasttitle {
+  margin-bottom: 10px;
+}
+.talk-create__pasttalk {
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+}
+@media screen and (min-width: 960px) {
+  .talk-create__pasttalk {
+    align-items: stretch;
+  }
+}
+.talk-create__usercontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 25px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 2%;
+}
+@media screen and (min-width: 960px) {
+  .talk-create__usercontainer {
+    width: 45%;
+    border-radius: 5%;
+  }
+}
+.talk-create__userbody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.talk-create__userdate {
+  margin-bottom: 10px;
+}
+.talk-create__operation {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 12px;
+}
+@media screen and (min-width: 960px) {
+  .talk-create__operation {
+    font-size: 14px;
+  }
+}/*# sourceMappingURL=talk_create.css.map */

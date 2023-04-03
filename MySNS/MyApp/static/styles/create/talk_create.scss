@@ -1,0 +1,137 @@
+@use "../globals" as *;
+@use "../parts/common" as *;
+
+.talk-create{
+    margin-top: 100px;
+    margin-bottom: 50px !important;
+    @extend .content-width;
+    &__container{
+        background-color: $cBgGray;
+        padding: 30px 50px;
+        padding-top: 50px;
+    }
+    
+    &__header{
+        margin-bottom: 50px;
+    }
+
+    &__new{
+        margin-bottom: 100px;
+    }
+
+    &__newtitle{
+        margin-bottom: 10px;
+    }
+    
+    &__newtalk{
+        background-color: $cWhite;
+        padding: 25px 50px;
+        border-radius: 3%;
+        box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.2);
+
+        & p{
+            margin-bottom: 5px;
+        }
+    }
+
+    &__newtalk-name{
+        padding: 10px;
+        @extend .input-justify;
+    }
+
+    &__newtalk-textarea{
+        width: 100%;
+        padding: 10px;
+        @extend .input-justify;
+    }
+
+    &__newtalk-img{
+        padding: 10px;
+        @extend .input-justify;
+    }
+
+    &__newtalk-select{
+        padding: 10px;
+        @extend .input-justify;
+        margin-bottom: 25px;
+    }
+
+
+    &__newtalk-btnjustify{
+        display: flex;
+        justify-content: center;
+        & button {
+            background-color: #2196F3;
+            color: white;
+            
+            border-radius: 10px;
+            border: 2px solid #ccc;
+
+            &:hover {
+              background-color: rgb(0, 191, 255);
+              color: rgb(0, 0, 0);
+            }
+            
+            &:active {
+              background-color: navy;
+            }
+            
+            margin: 10px 20px;
+          }
+    }
+
+    &__newtalk-btn{
+        margin: 0;
+    }
+
+    &__pasttitle{
+        margin-bottom: 10px;
+    }
+
+    &__pasttalk{
+        @extend .flex3;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 50px;
+        @include mq(lg){
+            align-items: stretch;
+        }
+    }
+
+    &__usercontainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        background-color: white;
+        padding: 15px;
+        margin-bottom: 25px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        border-radius: 2%;
+        
+        @include mq(lg){
+            width: 45%;
+            border-radius: 5%;
+        }
+    }
+
+    &__userbody{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    &__userdate{
+        margin-bottom: 10px;
+    }
+
+    &__operation{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: 12px;
+        @include mq(lg){
+            font-size: 14px;
+        }
+    }
+}

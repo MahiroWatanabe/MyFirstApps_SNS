@@ -10,39 +10,65 @@
   <div class="talk-create__inner">
     <div class="talk-create__container">
       <div class="talk-create__header">
-
+        <h2 class="main-title">新しい投稿</h2>
       </div>
 
       <div class="talk-create__new">
         <div class="talk-create__newtitle">
-
+          <h2>記事内容</h2>
         </div>
         <div class="talk-create__newtalk">
-
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>内容</p>
+            <textarea class="talk-create__newtalk-textarea" name="content" cols="40" rows="10" maxlength="500" required="" id="id_content"></textarea>
+            <div class="talk-create__newtalk-btnjustify">
+              <button type="submit" class="btn btn-primary talk-create__newtalk-btn">Create</button>
+            </div>
+          </form>
         </div>
       </div>
 
       <div class="talk-create__past">
         <div class="talk-create__pasttitle">
-
+          <h2>過去のつぶやき</h2>
         </div>
         <div class="talk-create__pasttalk">
-          
+          {% for talk in talks %}
+          <div class="talk-create__usercontainer">
+            <div class="talk-create__userbody">
+              <p class="talk-create__userdate">{{ talk.date_posted|date:"m/d/Y" }}</p>
+              <p>{{ talk.content }}</p>
+            </div>
+            <div class="talk-create__operation">
+              <div class="mypost__good">
+                {% if is_user_liked_for_post %}
+                <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                <!-- すでにイイねしている時はfasクラス -->
+                <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+                </button>
+                {% else %}
+                <button type="button" id="ajax-like-for-post" style="border:none;background:none">
+                <!-- イイねしていないときはfarクラス -->
+                <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+                </button>
+                {% endif %}
+                <!-- イイねの数 -->
+                <span id="postlike_count">{{ postlike_count }}</span>
+                <span>いいね</span>
+              </div>
+
+              <div class="mypost__watch">
+                  <i class="fas fa-eye"></i>
+                  <span>{{post.views}}</span>
+                  <span>閲覧</span>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<div class="container">
-    <h1>Create Talk</h1>
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Create</button>
-    </form>
-    {% for talk in talks %}
-    <p>{{ talk.content }}</p>
-    {% endfor %}
-  </div>
-  {% endblock main-content %}
+{% endblock main-content %}

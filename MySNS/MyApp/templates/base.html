@@ -36,13 +36,13 @@
                 <nav class="header__nav">
                   <ul class="header__ul">
                     {% if user.is_authenticated %}
-                      <li class="header__li"><a href="{% url 'MyApp:logout' %}" class='logout nav-link'>{{user}}-Logout</a></li>
+                      <li class="header__li"><a href="{% url 'MyApp:logout' %}">{{user}}-Logout</a></li>
                     {% else %}
                       <li class='header__li'>
-                          <a href="{% url 'MyApp:login' %}" class='login nav-link'>Login</a>
+                          <a href="{% url 'MyApp:login' %}">Login</a>
                       </li>
                       <li class="header__li">
-                          <a href="{% url 'MyApp:login' %}" class='signup nav-link'> Sign up </a>
+                          <a href="{% url 'MyApp:login' %}"> Sign up </a>
                       </li>
                     {% endif %}
                     <li class="header__li"><a href="{% url 'MyApp:talk' %}">みんなのつぶやき</a></li>

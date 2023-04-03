@@ -1,7 +1,70 @@
-<form method="post">
-    {% csrf_token %}
-    <input type="hidden" name="pk" value="{{ object.pk }}">
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Update</button>
-    </form>
-    
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+  <link rel="stylesheet" href="{% static 'styles/update/myPage-update.css' %}">
+{% endblock customcss %}
+
+{% block main-content %}
+<section class="update">
+    <div class="update__inner">
+        <div class="update__container">
+            <div class="update__header">
+                <h2 class="main-title">Update</h2>
+                <p class="sub-title pickup__sub-title">プロフィールを更新しよう</p>
+            </div>
+            <div class="update__formContainer">
+                <div class="update__form">
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="1">
+                        <div class="update__name">
+                            <p>名前</p>
+                            <input type="text" name="name" value="太郎" maxlength="15" id="id_name">
+                        </div>
+                        <div class="update__icon">
+                            <p>アイコン</p>
+                            現在: <a href="/media/icons/default_icon.jpg">icons/default_icon.jpg</a>
+                            <input class="update__checkbox" style="margin-bottom: 10px;" type="checkbox" name="icon-clear" id="icon-clear_id">
+                            <label for="icon-clear_id">クリア</label><br>
+                            変更:
+                            <input type="file" name="icon" accept="image/*" id="id_icon">
+                        </div>
+                        <div class="update__bio">
+                            <p>自己紹介</p>
+                            <input type="text" name="bio" value="私は現在大学三年生で、情報学科に所属しています。私はプログラミングに興味があり、これまでに多くのプログラミング言語を学んできました。私はWeb開発、アプリ開発、ゲーム開発などの分野に関心があり、さまざまなプロジェクトに挑戦してきました。私は新しい技術やフレームワークに興味があり、常に学習と成長に取り組んでいます。" maxlength="200" id="id_bio">
+                        </div>
+                        <div class="update__age">
+                            <p>年齢</p>
+                            <input type="number" name="age" value="21" id="id_age">
+                        </div>
+                        <div class="update__gender">
+                            <p>年齢</p>
+                            <input type="text" name="gender" value="男" maxlength="10" id="id_gender">
+                        </div>
+                        <div class="update__university">
+                            <p>大学</p>
+                            <input type="text" name="university" value="○○○大学" maxlength="50" id="id_university">
+                        </div>
+                        <div class="update__sns">
+                            <p>SNSアカウント</p>
+                            <input type="text" name="sns_account" value="jkasdfjlas" maxlength="50" id="id_sns_account">
+                        </div>
+                        <div class="update__hobby">
+                            <p>趣味</p>
+                            <input type="text" name="hobby" value="プログラミング" maxlength="50" id="id_hobby">
+                        </div>
+                        <div class="update__language">
+                            <p>利用できる言語</p>
+                            <input type="text" name="language" value="Python" maxlength="50" id="id_language">
+                        </div>
+                        <div class="update__btn">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

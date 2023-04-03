@@ -73,7 +73,7 @@ class PostDetailView(DetailView):
         post = self.get_object()  # ポストを取得
         post.views += 1  # viewsを1増やす
         post.save()  # データベースに保存
-        
+
         postlike_count = self.object.postlike_set.count()
         # ポストに対するイイね数
         context['postlike_count'] = postlike_count
@@ -102,6 +102,22 @@ class PostCreateView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['posts'] = Post.objects.filter(author=self.request.user)
         context['form'] = PostForm()
+
+        postlike_counts = []
+        is_user_liked_for_posts = []
+        for post in context['posts']:
+            postlike_count = post.postlike_set.count()
+            postlike_counts.append(postlike_count)
+            
+            if post.postlike_set.filter(user=self.request.user).exists():
+                is_user_liked_for_post = True
+            else:
+                is_user_liked_for_post = False
+            is_user_liked_for_posts.append(is_user_liked_for_post)
+
+        context['postlike_count'] = postlike_counts
+        context['is_user_liked_for_post'] = is_user_liked_for_posts
+
         return context
 
     def post(self, request, *args, **kwargs):

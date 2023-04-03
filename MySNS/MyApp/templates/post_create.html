@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
+
+{% block javaScript %}
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+{% endblock javaScript %}
 
 {% block customcss %}
 <link rel="stylesheet" href="{% static 'styles/create/post_create.css' %}">
@@ -48,7 +56,7 @@
           <h2>過去の投稿</h2>
         </div>
         <div class="post-create__pastpost">
-          {% for post in posts %}
+          {% for post, is_user_liked_for_post in posts|zip_lists:is_user_liked_for_post %}
                 <div class="mypost__usercontainer">
                     <div class="mypost__userimgcontainer">
                         <img src="{{ post.image.url }}" alt="" class="mypost__img">
@@ -61,20 +69,20 @@
                         </div>
                         <div class="mypost__operation">
                             <div class="mypost__good">
-                                {% if is_user_liked_for_post %}
-                                <button type="button" id="ajax-like-for-post" style="border:none;background:none">
-                                <!-- すでにイイねしている時はfasクラス -->
-                                <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
-                                </button>
-                                {% else %}
-                                <button type="button" id="ajax-like-for-post" style="border:none;background:none">
-                                <!-- イイねしていないときはfarクラス -->
-                                <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
-                                </button>
-                                {% endif %}
-                                <!-- イイねの数 -->
-                                <span id="postlike_count">{{ postlike_count }}</span>
-                                <span>いいね</span>
+                              {% if is_user_liked_for_post %}
+                              <button type="button" id="ajax-like-for-post-{{ post.pk }}" style="border:none;background:none">
+                              <!-- すでにイイねしている時はfasクラス -->
+                              <i class="fas fa-heart text-danger" id="like-for-post-icon-{{ post.pk }}"></i>
+                              </button>
+                              {% else %}
+                              <button type="button" id="ajax-like-for-post-{{ post.pk }}" style="border:none;background:none">
+                              <!-- イイねしていないときはfarクラス -->
+                              <i class="far fa-heart text-danger" id="like-for-post-icon-{{ post.pk }}"></i>
+                              </button>
+                              {% endif %}
+                              <!-- イイねの数 -->
+                              <span id="postlike_count-{{ post.pk }}">{{ post.postlike_set.count }}</span>
+                              <span>いいね</span>
                             </div>
             
                             <div class="mypost__watch">
@@ -92,4 +100,45 @@
     </div>
   </div>
 </section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    /* ポストに対するイイね */
+    document.querySelectorAll('[id^="ajax-like-for-post"]').forEach(button => {
+    button.addEventListener('click', e => {
+        e.preventDefault();
+        const postPk = button.id.split('-')[4];
+        console.log(postPk)
+        const url = '{% url "MyApp:post_like" %}';
+        fetch(url, {
+            method: 'POST',
+            body: `post_pk=${postPk}`,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+        }).then(response => {
+            return response.json();
+        }).then(response => {
+            // イイね数を書き換える
+            const counter = document.getElementById(`postlike_count-${postPk}`)
+            console.log(counter)
+            counter.textContent = response.postlike_count
+            const icon = document.getElementById(`like-for-post-icon-${postPk}`)
+            // 作成した場合はハートを塗る
+            if (response.method == 'create') {
+                icon.classList.remove('far')
+                icon.classList.add('fas')
+            } else {
+                icon.classList.remove('fas')
+                icon.classList.add('far')
+            }
+        }).catch(error => {
+            console.log(error);
+        });
+    });
+});
+
+</script>
+
 {% endblock main-content %}

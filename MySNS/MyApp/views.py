@@ -271,9 +271,14 @@ class MyPageUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('MyApp:myPage', kwargs={'pk': self.object.pk})
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(user=self.request.user)
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     return queryset.filter(user=self.request.user)
+
+    def get_object(self, queryset=None):
+        queryset = self.get_queryset()
+        obj = queryset.get(user=self.request.user)
+        return obj
 
 class MyPageJsonView(View):
     def get(self, request, *args, **kwargs):

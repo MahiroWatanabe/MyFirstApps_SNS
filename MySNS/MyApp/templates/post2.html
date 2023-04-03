@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
+
 
 {% block javaScript %}
     <!-- Font Awesome -->
@@ -13,10 +15,14 @@
 {% block main-content %}
 
 <section class="pickpost">
-    {% for post in posts %}
+    {% for post, is_user_liked_for_post in posts|zip_lists:is_user_liked_for_post %}
     <div class="pickpost__container">
         <div class="pickpost__imgcontainer">
+            {% if post.image %}
             <img src="{{ post.image.url }}" class="pickpost__img" alt="post image">
+            {% else %}
+            <p>None</p>
+            {% endif %}
         </div>
         <div class="pickpost__body">
             <div class="pickpost__author-data">
@@ -32,19 +38,19 @@
             <p class="pickpost__content">{{ post.content }}</p>
             <div class="pickpost__operation">
                 <div class="pickpost__good">
-                    {% if is_user_liked_for_post.0 %}
-                    <button type="button" class="ajax-like-for-post" style="border:none;background:none">
+                    {% if is_user_liked_for_post %}
+                    <button type="button" id="ajax-like-for-post-{{ post.pk }}" style="border:none;background:none">
                     <!-- すでにイイねしている時はfasクラス -->
-                    <i class="fas fa-heart text-danger" id="like-for-post-icon"></i>
+                    <i class="fas fa-heart text-danger" id="like-for-post-icon-{{ post.pk }}"></i>
                     </button>
                     {% else %}
-                    <button type="button" class="ajax-like-for-post" style="border:none;background:none">
+                    <button type="button" id="ajax-like-for-post-{{ post.pk }}" style="border:none;background:none">
                     <!-- イイねしていないときはfarクラス -->
-                    <i class="far fa-heart text-danger" id="like-for-post-icon"></i>
+                    <i class="far fa-heart text-danger" id="like-for-post-icon-{{ post.pk }}"></i>
                     </button>
                     {% endif %}
                     <!-- イイねの数 -->
-                    <span id="postlike_count">{{ postlike_count.0 }}</span>
+                    <span id="postlike_count-{{ post.pk }}">{{ post.postlike_set.count }}</span>
                     <span>いいね</span>
                 </div>
 
@@ -63,40 +69,42 @@
 </section>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-          /* ポストに対するイイね */
-          document.querySelectorAll('.ajax-like-for-post').forEach(button => {
-            button.addEventListener('click', e => {
-            e.preventDefault();
-            const url = '{% url "MyApp:post_like" %}';
-            fetch(url, {
-              method: 'POST',
-              body: `post_pk={{post.pk}}`,
-              headers: {
+<script>
+    /* ポストに対するイイね */
+    document.querySelectorAll('[id^="ajax-like-for-post"]').forEach(button => {
+    button.addEventListener('click', e => {
+        e.preventDefault();
+        const postPk = button.id.split('-')[4];
+        console.log(postPk)
+        const url = '{% url "MyApp:post_like" %}';
+        fetch(url, {
+            method: 'POST',
+            body: `post_pk=${postPk}`,
+            headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
                 'X-CSRFToken': '{{ csrf_token }}',
-              },
-            }).then(response => {
-                return response.json();
-            }).then(response => {
+            },
+        }).then(response => {
+            return response.json();
+        }).then(response => {
             // イイね数を書き換える
-            const counter = document.getElementById('postlike_count')
+            const counter = document.getElementById(`postlike_count-${postPk}`)
+            console.log(counter)
             counter.textContent = response.postlike_count
-            const icon = document.getElementById('like-for-post-icon')
+            const icon = document.getElementById(`like-for-post-icon-${postPk}`)
             // 作成した場合はハートを塗る
             if (response.method == 'create') {
                 icon.classList.remove('far')
                 icon.classList.add('fas')
-                icon.id = 'like-for-post-icon'
             } else {
                 icon.classList.remove('fas')
                 icon.classList.add('far')
-                icon.id = 'like-for-post-icon'
             }
-            }).catch(error => {
-                console.log(error);
-            });
+        }).catch(error => {
+            console.log(error);
         });
     });
-        </script>
+});
+
+  </script>
 {% endblock main-content %}

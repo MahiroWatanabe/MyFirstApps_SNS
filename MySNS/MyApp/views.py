@@ -32,7 +32,7 @@ class UserPostListView(ListView):
 
 class PostView(ListView):
     model = Post
-    template_name = 'post2.html'
+    template_name = 'post.html'
     context_object_name = 'posts'
     
     def get_queryset(self):
@@ -69,6 +69,11 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        post = self.get_object()  # ポストを取得
+        post.views += 1  # viewsを1増やす
+        post.save()  # データベースに保存
+        
         postlike_count = self.object.postlike_set.count()
         # ポストに対するイイね数
         context['postlike_count'] = postlike_count

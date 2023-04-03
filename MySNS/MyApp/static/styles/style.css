@@ -1074,6 +1074,9 @@ a {
   padding: 24px;
   width: 100%;
 }
+.mypage__profile-card p {
+  margin-bottom: 10px;
+}
 .mypage__introduction {
   margin-bottom: 5px;
 }

@@ -136,7 +136,8 @@ from django.views import View
 
 class PostJsonView(View):
     def get(self, request, *args, **kwargs):
-        posts = Post.objects.all()
+        user = request.user
+        posts = Post.objects.filter(author=user)
         data = list(posts.values())
         return JsonResponse(data, safe=False)
     

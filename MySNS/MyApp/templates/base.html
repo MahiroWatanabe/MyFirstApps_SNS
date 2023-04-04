@@ -49,7 +49,7 @@
                     <li class="header__li"><a href="{% url 'MyApp:post' %}">投稿一覧</a></li>
                     <li class="header__li"><a href="#">オープンチャット</a></li>
                     {% if user.is_authenticated %}
-                      <li class="header__li"><a class="btn filled a-justify" href="{% url 'MyApp:myPage' pk=user.pk %}">MyPage</a></li>
+                      <li class="header__li"><a class="btn filled a-justify" href="{% url 'MyApp:myPage' pk=user.profile.pk %}">MyPage</a></li>
                     {% else %}
 
                     {% endif %}

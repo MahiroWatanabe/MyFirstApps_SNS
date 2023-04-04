@@ -136,8 +136,7 @@ from django.views import View
 
 class PostJsonView(View):
     def get(self, request, *args, **kwargs):
-        user = request.user
-        posts = Post.objects.filter(author=user)
+        posts = Post.objects.all()
         data = list(posts.values())
         return JsonResponse(data, safe=False)
     
@@ -326,8 +325,9 @@ class MyPageUpdateView(LoginRequiredMixin, UpdateView):
 
 class MyPageJsonView(View):
     def get(self, request, *args, **kwargs):
-        profiles = Profile.objects.all()
-        data = list(profiles.values())
+        user = request.user
+        posts = Post.objects.filter(author=user)
+        data = list(posts.values())
         return JsonResponse(data, safe=False)
 
 #----------------------------------

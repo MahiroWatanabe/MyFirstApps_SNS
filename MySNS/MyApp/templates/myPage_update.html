@@ -15,7 +15,7 @@
             </div>
             <div class="update__formContainer">
                 <div class="update__form">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <input type="hidden" name="pk" value="1">
                         <div class="update__name">
@@ -32,31 +32,31 @@
                         </div>
                         <div class="update__bio">
                             <p>自己紹介</p>
-                            <input type="text" name="bio" value="私は現在大学三年生で、情報学科に所属しています。私はプログラミングに興味があり、これまでに多くのプログラミング言語を学んできました。私はWeb開発、アプリ開発、ゲーム開発などの分野に関心があり、さまざまなプロジェクトに挑戦してきました。私は新しい技術やフレームワークに興味があり、常に学習と成長に取り組んでいます。" maxlength="200" id="id_bio">
+                            <input type="text" name="bio" value="{{ form.bio.value }}" maxlength="200" id="id_bio">
                         </div>
                         <div class="update__age">
                             <p>年齢</p>
-                            <input type="number" name="age" value="21" id="id_age">
+                            <input type="number" name="age" value="{{ form.age.value }}" id="id_age">
                         </div>
                         <div class="update__gender">
-                            <p>年齢</p>
-                            <input type="text" name="gender" value="男" maxlength="10" id="id_gender">
+                            <p>性別</p>
+                            <input type="text" name="gender" value="{{ form.gender.value }}" maxlength="10" id="id_gender">
                         </div>
                         <div class="update__university">
                             <p>大学</p>
-                            <input type="text" name="university" value="○○○大学" maxlength="50" id="id_university">
+                            <input type="text" name="university" value="{{ form.university.value }}" maxlength="50" id="id_university">
                         </div>
                         <div class="update__sns">
                             <p>SNSアカウント</p>
-                            <input type="text" name="sns_account" value="jkasdfjlas" maxlength="50" id="id_sns_account">
+                            <input type="text" name="sns_account" value="{{ form.sns_account.value }}" maxlength="50" id="id_sns_account">
                         </div>
                         <div class="update__hobby">
                             <p>趣味</p>
-                            <input type="text" name="hobby" value="プログラミング" maxlength="50" id="id_hobby">
+                            <input type="text" name="hobby" value="{{ form.hobby.value }}" maxlength="50" id="id_hobby">
                         </div>
                         <div class="update__language">
                             <p>利用できる言語</p>
-                            <input type="text" name="language" value="Python" maxlength="50" id="id_language">
+                            <input type="text" name="language" value="{{ form.language.value }}" maxlength="50" id="id_language">
                         </div>
                         <div class="update__btn">
                             <button type="submit" class="btn btn-primary">Update</button>

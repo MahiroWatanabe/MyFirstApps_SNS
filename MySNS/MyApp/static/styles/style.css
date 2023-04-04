@@ -1035,6 +1035,20 @@ a {
     width: 50%;
   }
 }
+.pickpost__detail-content {
+  margin-top: 8px;
+  font-size: 8px;
+}
+@media screen and (min-width: 960px) {
+  .pickpost__detail-content {
+    font-size: 10px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .pickpost__detail-content {
+    font-size: 12px;
+  }
+}
 
 .modal-wrapper {
   position: fixed;

@@ -52,6 +52,33 @@
         <div class="mypost__container">
             {% for post in posts %}
                 <div class="mypost__usercontainer">
+                  <div class="modal-wrapper">
+                    <div class="modal">
+                        <div class="pickpost__detail-container">
+                            <button class="close-button">&times;</button>
+                            <h2 class="h2-justify">{{ post.title }}</h2>
+
+                            <div class="pickpost__detail-body">
+                                <div class="pickpost__detail-author">
+                                    <div class="pickpost__author">
+                                        <p style="margin-right:5px;">{{ post.author }}</p>
+                                        <p>ID: {{ post.author_id }}</p>
+                                    </div>
+                                    <div class="pickpost__detail-date">
+                                        <p class="pickpost__data">{{ post.date_posted|date:"m/d/Y" }}</p>
+                                    </div>
+                                </div>
+                                <div class="pickpost__detail-imgjustify">
+                                    <div class="pickpost__detail-imgcontainer">
+                                        <img src="{{ post.image.url }}" class="pickpost__img" alt="post image">
+                                    </div>
+                                </div>
+                                <p class="pickpost__detail-content">{{ post.content }}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
                     <div class="mypost__userimgcontainer">
                         <img src="{{ post.image.url }}" alt="" class="mypost__img">
                     </div>
@@ -84,7 +111,7 @@
                                 <span>{{post.views}}</span>
                                 <span>閲覧</span>
                             </div>
-                            <button class="mypost__btn"><a href="{% url 'MyApp:post_detail' pk=post.pk %}" class="mypost__a">詳細を見る</a></button>
+                            <button class="mypost__btn"><a class="mypost__a">詳細を見る</a></button>
                         </div>
                     </div>
                 </div>
@@ -94,6 +121,7 @@
     </div>
 </section>
 
+<script src="{% static 'scripts/mypage.js' %}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- <script>
     async function limitTextByBytes(text, maxBytes) {

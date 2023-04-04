@@ -843,6 +843,17 @@ a {
   }
 }
 
+.pickpost__inner {
+  position: relative;
+}
+.pickpost__inner.clicked::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 3000;
+}
 .pickpost__container {
   position: relative;
   display: flex;
@@ -902,7 +913,7 @@ a {
 .pickpost__author-data {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-end;
+  align-items: center;
 }
 .pickpost__author-data .round-image-container {
   display: inline-block;
@@ -990,6 +1001,82 @@ a {
 .pickpost__a {
   color: black;
   text-decoration: none;
+}
+.pickpost__detail-body {
+  width: 90%;
+  margin: 0 auto;
+  background-color: #f1f1f1;
+  padding: 30px;
+  border-radius: 5%;
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
+}
+.pickpost__detail-date {
+  margin-bottom: 10px;
+}
+.pickpost__detail-imgjustify {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.pickpost__detail-imgcontainer {
+  display: flex;
+  width: 90%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+@media screen and (min-width: 600px) {
+  .pickpost__detail-imgcontainer {
+    width: 70%;
+  }
+}
+@media screen and (min-width: 960px) {
+  .pickpost__detail-imgcontainer {
+    margin-right: 15px;
+    width: 50%;
+  }
+}
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 999;
+}
+.modal-wrapper .modal {
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+@media screen and (min-width: 960px) {
+  .modal-wrapper .modal {
+    width: 800px;
+  }
+}
+.modal-wrapper .modal .close-button {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+  font-size: 55px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+.modal-wrapper .modal .h2-justify {
+  margin-bottom: 30px;
 }
 
 .mypage {

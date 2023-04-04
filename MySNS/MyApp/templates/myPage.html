@@ -85,7 +85,7 @@
                     <div class="mypost__userbody-operation">
                         <div class="mypost__userbody">
                             <p class="mypost__usertitle">{{ post.title }}</p>
-                            <p>{{ post.category }}</p>
+                            <p style=" margin-bottom: 10px;">Category: {{ post.category }}</p>
                             <p class="mypost__usercontent">{{ post.content }}</p>
                         </div>
                         <div class="mypost__operation">
@@ -150,7 +150,7 @@
       if (window.location.href.indexOf("{% url 'MyApp:myPage' pk=profiles.pk %}") > -1) {
         async function onResize(){
           $.ajax({
-            url: '/myPage/json',
+            url: '/post/json',
             type: 'GET',
             dataType: "json",
             success:async function(data){
@@ -182,7 +182,7 @@
                 }else{
                   maxLength = 200;
                 }
-                regularContent = await limitTextByBytes(reversedcachedDate[i].content,maxLength);
+                regularContent = await limitTextByBytes(cachedDate[i].content,maxLength);
                 content[i].innerText = regularContent;
               }
             }

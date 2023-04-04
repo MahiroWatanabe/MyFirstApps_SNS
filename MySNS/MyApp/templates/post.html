@@ -37,7 +37,11 @@
                                 </div>
                                 <div class="pickpost__detail-imgjustify">
                                     <div class="pickpost__detail-imgcontainer">
+                                        {% if post.image %}
                                         <img src="{{ post.image.url }}" class="pickpost__img" alt="post image">
+                                        {% else %}
+                                        <p>None</p>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <p class="pickpost__detail-content">{{ post.content }}</p>
@@ -47,7 +51,11 @@
                     </div>
                 </div>
             <div class="pickpost__imgcontainer">
+                {% if post.image %}
                 <img src="{{ post.image.url }}" class="pickpost__img" alt="post image">
+                {% else %}
+                <p>None</p>
+                {% endif %}
                 </div>
                 <div class="pickpost__body">
                     <div class="pickpost__author-data">

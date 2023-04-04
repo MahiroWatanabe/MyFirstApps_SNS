@@ -23,7 +23,7 @@ class Post(models.Model):
     date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    image = models.ImageField(upload_to='post_images/', null=True, blank=True)
+    image = models.ImageField(upload_to='post_images/', default="post_images/D.jpg")
     image2 = models.ImageField(upload_to='post_images/', null=True, blank=True)
     image3 = models.ImageField(upload_to='post_images/', null=True, blank=True)
     image4 = models.ImageField(upload_to='post_images/', null=True, blank=True)
@@ -97,7 +97,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=15, null=True, blank=True)
     posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='profile_posts', blank=True, null=True)
-    icon = models.ImageField(null=True, blank=True, default="icons/default_icon.jpg", upload_to='icons/')
+    icon = models.ImageField(null=True, blank=True, default="icons/default_icon.jpeg", upload_to='icons/')
     bio = models.TextField(max_length=200, null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
     gender = models.CharField(max_length=4, choices=GENDER_CHOICES, null=True, blank=True)

@@ -47,7 +47,6 @@
                     {% endif %}
                     <li class="header__li"><a href="{% url 'MyApp:talk' %}">みんなのつぶやき</a></li>
                     <li class="header__li"><a href="{% url 'MyApp:post' %}">投稿一覧</a></li>
-                    <li class="header__li"><a href="#">オープンチャット</a></li>
                     {% if user.is_authenticated %}
                       <li class="header__li"><a class="btn filled a-justify" href="{% url 'MyApp:myPage' pk=user.profile.pk %}">MyPage</a></li>
                     {% else %}
@@ -84,7 +83,6 @@
             <ul class="footer__ul">
               <li class="footer__li"><a href="{% url 'MyApp:talk' %}">みんなのつぶやき</a></li>
               <li class="footer__li"><a href="{% url 'MyApp:post' %}">投稿一覧</a></li>
-              <li class="footer__li"><a href="#">オープンチャット</a></li>
             </ul>
           </nav>
         </div>
@@ -104,11 +102,6 @@
           <li class="mobile-menu__item">
               <a class="mobile-menu__link" href="{% url 'MyApp:post' %}">
                   <span class="sub-title">投稿一覧</span>
-              </a>
-          </li>
-          <li class="mobile-menu__item">
-              <a class="mobile-menu__link" href="#">
-                  <span class="sub-title">オープンチャット</span>
               </a>
           </li>
           {% if user.is_authenticated %}

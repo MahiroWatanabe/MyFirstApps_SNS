@@ -13,11 +13,13 @@ MyCodeは、twitterとinstagramの機能を合わせたエンジニアのため�
 
 ### 2. ログイン画面
 [ログイン画面の動画](https://www.youtube.com/watch?v=uGMlsRFcqeo)
+<p>
 <img src="md_images/login.jpg" alt="login" width="500">
 <p>新しいアカウントを作成を押すとサインアップのモーダルウィンドウが表示されます。</p>
 
 ### 3. トーク画面
 [トーク画面の動画](https://www.youtube.com/watch?v=uGMlsRFcqeo)
+<p>
 <img src="md_images/talk.jpg" alt="talk" width="500">
 <p>トーク画面では全ユーザーが投稿したつぶやきを見れます。<br>
 人気順、最近を押すと、つぶやきの順番が変更され、つぶやきにいいねを押せます。</p>
@@ -26,6 +28,7 @@ MyCodeは、twitterとinstagramの機能を合わせたエンジニアのため�
 
 ### 4. ポスト画面
 [ポスト画面の動画](https://www.youtube.com/watch?v=uGMlsRFcqeo)
+<p>
 <img src="md_images/post.jpg" alt="post" width="500">
 <p>ポスト画面では全ユーザーが画像付きで投稿できます。<br>
 人気順、最近を押すと、投稿の順番が変更され、投稿にいいねを押せます。</p>
@@ -34,6 +37,7 @@ MyCodeは、twitterとinstagramの機能を合わせたエンジニアのため�
 
 ### 5. マイページ画面
 [マイページ画面の動画](https://www.youtube.com/watch?v=uGMlsRFcqeo)
+<p>
 <img src="md_images/Mypage.jpg" alt="post" width="500">
 <p>マイページ画面では自分のプロフィールの編集や過去の投稿を見れます。</p>
 <img src="md_images/MypageUpdate.jpg" alt="post" width="500">

@@ -34,7 +34,7 @@ MyCodeは、twitterとinstagramの機能を合わせたエンジニアのため�
 <p>
 <img src="md_images/post.jpg" alt="post" width="500">
 <img src="md_images/post2.jpg" alt="post" width="500">
-<p>ポスト画面では全ユーザーが画像付きで投稿できます。また、投稿にいいねを押せます。<br>
+<p>ポスト画面では全ユーザーが画像付きで投稿できます。また、投稿にいいねを押せます。詳細を押すとモーダルウィンドウが表示され、投稿を詳しく見れます。<br>
 人気順、最近を押すと、投稿の順番が変更されます。</p>
 <img src="md_images/post_create.jpg" alt="post" width="500">
 <p>ポスト画面の新規投稿を作成ボタンを押すとポスト作成画面に遷移し、新しく作成出来ます。</p>
